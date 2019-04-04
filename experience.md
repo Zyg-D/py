@@ -16,7 +16,7 @@ Adding a new col with NaN values:
 
     df['new_col_name'] = numpy.nan
     
-Deleting a col by col name
+Deleting a col by col name  
 <sup>1 is the axis number (0 for rows and 1 for columns.)</sup>
 
     df = df.drop('column_name', 1)
