@@ -1,4 +1,3 @@
-
 -------------------------------------------------------------------------------
 **dataframes (pandas)**
 
@@ -57,3 +56,22 @@ Referencing the value of a specified key:
     with pandas.ExcelWriter('out_file.xlsx') as writer:
         df.to_excel(writer)
 
+----------------------------------------------------------------------------
+**Activating a window**
+
+Option 1
+
+    import win32com.client as comclt
+    wsh= comclt.Dispatch("WScript.Shell")
+    wsh.AppActivate("FRANKONAS")
+    wsh.SendKeys("{ENTER}") 
+
+Option 2
+
+    import win32gui
+    def myF(hwnd, lParam):
+        if win32gui.IsWindowVisible(hwnd):
+            if win32gui.GetWindowText(hwnd) == "FRANKONAS":
+                win32gui.SetForegroundWindow(hwnd)
+    # Passing the handle of each window, to an application-defined callback function (in this case: myF)
+    win32gui.EnumWindows(myF, None)
