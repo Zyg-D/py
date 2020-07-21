@@ -25,9 +25,21 @@ Deleting a col by col name
 ----------------------------------------------------------------------------
 **lists**
 
+Adding an empty list:
+
+    list = []
+
+Adding items:
+
+    list.append("aa")
+
 Referencing elements by index:
 
     list[0]
+
+Length of the list:
+
+    len(list)
 
 Finding the index given item name:
 
