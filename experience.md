@@ -1,4 +1,6 @@
-**dataframes (pandas)**
+<h3><!---------------------------------------------------------------------------->
+    dataframes (pandas) 
+</h3><!--------------------------------------------------------------------------->
 
 Referencing individual items - by indexes:
 
@@ -21,7 +23,9 @@ Deleting a col by col name
 
     df = df.drop('column_name', 1)
 
-**lists**
+<h3><!---------------------------------------------------------------------------->
+    lists
+</h3><!--------------------------------------------------------------------------->
 
 Referencing elements by index:
 
@@ -31,7 +35,9 @@ Finding the index given item name:
 
     ["foo", "bar", "baz"].index("bar")
 
-**dicts**
+<h3><!---------------------------------------------------------------------------->
+    dicts
+</h3><!---------------------------------------------------------------------------> 
 
 Referencing the 1st element (but no order is guarranteed in dicts):
 
@@ -42,11 +48,15 @@ Referencing the value of a specified key:
 
     my_dict.get('key_name'[, default])
 
-**importing .json**
+<h3><!---------------------------------------------------------------------------->
+    importing .json
+</h3><!--------------------------------------------------------------------------->
 
     df=pandas.read_json("file_name.json", encoding = 'utf8')
     
-**exporting .xlsx**
+<h3><!---------------------------------------------------------------------------->
+    exporting .xlsx
+</h3><!--------------------------------------------------------------------------->
 
     with pandas.ExcelWriter('out_file.xlsx') as writer:
         df.to_excel(writer)
