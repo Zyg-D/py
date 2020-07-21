@@ -48,7 +48,7 @@ Finding the index given item name:
 ----------------------------------------------------------------------------
 **dicts**
 
-Referencing the 1st element (but no order is guarranteed in dicts):
+Referencing the 1st element (but no order is guaranteed in dicts):
 
     list(my_dict.keys())[0]
     
