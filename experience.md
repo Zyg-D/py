@@ -27,23 +27,45 @@ Deleting a col by col name
 
 Adding an empty list:
 
-    list = []
+    lt = []
 
 Adding items:
 
-    list.append("aa")
+    lt.append("a")
 
 Referencing elements by index:
 
-    list[0]
+    lt[0]
 
-Length of the list:
+Number of items:
 
-    len(list)
+    len(lt)
 
 Finding the index given item name:
 
     ["foo", "bar", "baz"].index("bar")
+
+----------------------------------------------------------------------------
+**tuples**  
+<sup>Tuples are unchangeable, or immutable</sup>
+
+    tpl = ("apple", "banana", "cherry")
+
+Referencing elements by index:
+
+    tpl[0]
+
+Number of items:
+    
+    len(tpl)
+
+Changing values:
+
+    x = ("apple", "banana", "cherry")
+    y = list(x)
+    y[1] = "kiwi"
+    x = tuple(y)
+    print(x)   # ('apple', 'kiwi', 'cherry')
 
 ----------------------------------------------------------------------------
 **dicts**
