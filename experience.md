@@ -65,6 +65,8 @@ Option 1
     wsh= comclt.Dispatch("WScript.Shell")
     wsh.AppActivate("FRANKONAS")
     wsh.SendKeys("{ENTER}") 
+<sup>It doesn't need any extra package to be installed! And most importantly, it can be compiled to EXE with 'py2exe' w/o problem, whereas 'pynput' and 'pyautogui' produce problems. </sup>
+
 
 Option 2
 
