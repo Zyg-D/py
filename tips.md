@@ -7,9 +7,9 @@ def convert_secs(secs):
     remaining_secs = secs - hours * 3600 - mins * 60
     return hours, mins, remaining_secs
 # calling:
-h, m, s = convert_secs(5000)  # writes values to every varb
-# OR
 result = convert_secs(5000)   # writes values to one varb as a tuple
+# OR
+h, m, s = convert_secs(5000)  # implicit tuple unpacking
 ```
 ----------------------------------------------
 Jeigu `if` blokuose yra `return`'ai, tada `else` galima visiskai pakeisti `return`'u. 
