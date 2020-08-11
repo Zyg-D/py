@@ -13,7 +13,7 @@ for i, val in enumerate(lst):
 -------------------------------------------------------------------------
 **List comprehension**: 
 ```py
-[ x * 7 for x in range(1,11)]
+print( [ x * 7 for x in range(1,11)] )
 ```
 ----------------------------------------------------------------------------------
 **2018-09 py frameworks** (tinklalapio kūrimui berods čia ieškojau)
