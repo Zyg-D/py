@@ -111,3 +111,10 @@ Option 2
                 win32gui.SetForegroundWindow(hwnd)
     # Passing the handle of each window, to an application-defined callback function (in this case: myF)
     win32gui.EnumWindows(myF, None)
+----------------------------------------------------------------------------
+**Read file contents**
+```py
+a = open("C:\\Temp\\test.txt", "r")
+a.read()
+```
+
