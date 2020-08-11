@@ -94,23 +94,25 @@ Referencing the value of a specified key:
 **Activating a window**
 
 Option 1
-
-    import win32com.client as comclt
-    wsh= comclt.Dispatch("WScript.Shell")
-    wsh.AppActivate("FRANKONAS")
-    wsh.SendKeys("{ENTER}") 
+```py
+import win32com.client as comclt
+wsh= comclt.Dispatch("WScript.Shell")
+wsh.AppActivate("FRANKONAS")
+wsh.SendKeys("{ENTER}")
+```
 <sup>It doesn't need any extra package to be installed! And most importantly, it can be compiled to EXE with 'py2exe' w/o problem, whereas 'pynput' and 'pyautogui' produce problems. </sup>
 
 
 Option 2
-
-    import win32gui
-    def myF(hwnd, lParam):
-        if win32gui.IsWindowVisible(hwnd):
-            if win32gui.GetWindowText(hwnd) == "FRANKONAS":
-                win32gui.SetForegroundWindow(hwnd)
-    # Passing the handle of each window, to an application-defined callback function (in this case: myF)
-    win32gui.EnumWindows(myF, None)
+```py
+import win32gui
+def myF(hwnd, lParam):
+    if win32gui.IsWindowVisible(hwnd):
+        if win32gui.GetWindowText(hwnd) == "FRANKONAS":
+            win32gui.SetForegroundWindow(hwnd)
+# Passing the handle of each window, to an application-defined callback function (in this case: myF)
+win32gui.EnumWindows(myF, None)
+```
 ----------------------------------------------------------------------------
 **Read file contents**
 ```py
