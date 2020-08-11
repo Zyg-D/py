@@ -4,6 +4,17 @@
 t = (1,23,20)
 h, m, s = t
 ```
+also this (implicit):
+```py
+lst = ["q","w","e"]
+for i, val in enumerate(lst):
+  print(f"{i} - {val}")
+```
+-------------------------------------------------------------------------
+**List comprehension**: 
+```py
+[ x * 7 for x in range(1,11)]
+```
 ----------------------------------------------------------------------------------
 **2018-09 py frameworks** (tinklalapio kūrimui berods čia ieškojau)
 - webapp2 - google
