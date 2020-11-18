@@ -1,6 +1,14 @@
 -------------------------------------------------------------------------------
 **dataframes (pandas)**
 
+Create an empty df:
+
+    df = pd.DataFrame()
+
+Put all Excel sheets into a dict {"sheetName" : df}
+
+    dfs = pd.read_excel('C:\\Temp\\file.xlsx', sheet_name=None)
+
 Referencing individual items - by indexes:
 
     df.iat[0,0]
@@ -21,6 +29,10 @@ Deleting a col by col name
 <sup>1 is the axis number (0 for rows and 1 for columns.)</sup>
 
     df = df.drop('column_name', 1)
+
+Loop through cols: 
+
+    for col in df.columns:
 
 ----------------------------------------------------------------------------
 **lists**
