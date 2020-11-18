@@ -5,6 +5,12 @@ Create an empty df:
 
     df = pd.DataFrame()
 
+Create a sample df: 
+
+    df = pd.DataFrame.from_records(
+			    [{'col_1': 'a', 'col_2': 1},
+			     {'col_1': 'b', 'col_2': 2} ] )
+
 Put all Excel sheets into a dict { "sheetName" : df , ... }
 
     dfs = pd.read_excel('C:\\Temp\\file.xlsx', sheet_name=None)
