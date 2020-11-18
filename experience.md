@@ -5,7 +5,7 @@ Create an empty df:
 
     df = pd.DataFrame()
 
-Put all Excel sheets into a dict {"sheetName" : df}
+Put all Excel sheets into a dict { "sheetName" : df , ... }
 
     dfs = pd.read_excel('C:\\Temp\\file.xlsx', sheet_name=None)
 
