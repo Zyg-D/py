@@ -89,6 +89,11 @@ Changing values:
 ----------------------------------------------------------------------------
 **dicts**
 
+Adding an empty dict: 
+
+    d = {}
+    d = dict()
+
 Referencing the 1st element (but no order is guaranteed in dicts):
 
     list(my_dict.keys())[0]
