@@ -91,8 +91,12 @@ Changing values:
 
 Adding an empty dict: 
 
-    d = {}
-    d = dict()
+    mydict = {}
+    mydict = dict()
+
+Adding values: 
+
+    mydict[key] = value
 
 Referencing the 1st element (but no order is guaranteed in dicts):
 
