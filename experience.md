@@ -96,16 +96,16 @@ Adding an empty dict:
 
 Adding values: 
 
-    mydict[key] = value
+    mydict[key_name] = a_value
 
 Referencing the 1st element (but no order is guaranteed in dicts):
 
-    list(my_dict.keys())[0]
+    list(mydict.keys())[0]
     
 Referencing the value of a specified key:  
 <sup>default is returned shen the key is not found</sup>
 
-    my_dict.get('key_name'[, default])
+    mydict.get('key_name'[, default])
 
 ----------------------------------------------------------------------------
 **importing .json**
