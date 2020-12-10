@@ -1,5 +1,5 @@
 
-Jupyter notebooks (borrowed atm):
+Jupyter notebooks (borrowed atm):  
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rmartin977/mnist_classification/master?filepath=mnist_classification.ipynb)
 
 
