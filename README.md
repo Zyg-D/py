@@ -2,7 +2,7 @@
 **Jupyter notebooks**  
 Example:  
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rmartin977/mnist_classification/master?filepath=mnist_classification.ipynb)  
-My file:  
+My own example file:  
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Zyg-D/py/master?filepath=jupyter%2F201210.ipynb)
 
 --------------------------------------------------------------------------
