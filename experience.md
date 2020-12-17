@@ -141,6 +141,7 @@ def myF(hwnd, lParam):
 # Passing the handle of each window, to an application-defined callback function (in this case: myF)
 win32gui.EnumWindows(myF, None)
 ```
+
 ----------------------------------------------------------------------------
 **Read file contents**
 ```py
