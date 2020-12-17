@@ -24,11 +24,14 @@ print( [ x * 7 for x in range(1,11)] )
 ```
 ----------------------------------------------------------------------------------
 **2018-09 py frameworks** (tinklalapio kūrimui berods čia ieškojau)
-- webapp2 - google
-- Django - most popular
-- Flask - micro, but good scalability, extensions/ plugins
-- Web2py - pasirinktas to, kuris norėjo daugiau negu php
-- Pyramid - powerful, harder to learn, flexible
-- Pylons  - powerful, harder to learn
-- Plone - CMS on Zope app server (written in py)
------------------------------------------------------------------------
+- Django - full-stack, most popular
+- webapp2 - full-stack, less popular, compatible with Google App Engine’s webapp
+- Flask - non full-stack, popular, micro, but good scalability, extensions/ plugins, used by LinkedIn, Pinterest
+- Web2py - full-stack, popular, pasirinktas to, kuris norėjo daugiau negu php
+- Pyramid - non full-stack, popular, powerful, harder to learn, flexible
+- Pylons  - full-stack, popular, powerful, harder to learn
+
+----------------------------------------------------------------------------------
+**IDE**
+- Atom - feature-rich, fits professionals, better than sublime, developed by GitHub
+- PyCharm - professionals' choice
