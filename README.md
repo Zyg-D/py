@@ -27,6 +27,15 @@ from typing import Final
 ID: Final = 1
 ```
 
+Additionally, there is also a `@final` decorator that can be applied to classes and methods. Classes decorated with `@final` can’t be subclassed, while `@final` methods can’t be overridden by subclasses:
+
+```py
+from typing import final
+@final
+class Base:
+    ...
+```
+
 --------------------------------------------------------------------------
 **Tuple *unpacking***
 ```py
