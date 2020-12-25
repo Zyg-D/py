@@ -6,6 +6,20 @@ My own example file:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Zyg-D/py/master?filepath=jupyter%2F201210.ipynb)
 
 --------------------------------------------------------------------------
+**Type hints**
+```py
+def double(number: float) -> float:
+    return 2 * number
+```
+`number` should be a float and `double()` should return a float. These annotations are treated as type hints - they are not enforced. Type hints allow static type checkers to do type checking of your Python code, without actually running your scripts.  
+
+Static type checkers:  
+- Pyright 
+- Pytype 
+- Pyre
+- Mypy
+
+--------------------------------------------------------------------------
 **Tuple *unpacking***
 ```py
 t = (1,23,20)
@@ -17,11 +31,13 @@ lst = ["q","w","e"]
 for i, val in enumerate(lst):
   print(f"{i} - {val}")
 ```
+
 -------------------------------------------------------------------------
 **List comprehension**: 
 ```py
 print( [ x * 7 for x in range(1,11)] )
 ```
+
 ----------------------------------------------------------------------------------
 **2018-09 py frameworks** (tinklalapio kūrimui berods čia ieškojau)
 - Django - full-stack, most popular
