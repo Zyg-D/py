@@ -58,7 +58,7 @@ tag('img', height=20, width=40, src="face.jpg") # '<img height="20" width="40" s
 
 Funkcijoje `def get_multiple(*keys, dictionary, default=None)` argumentai `dictionary` ir `default` gali buti irasyti tik kaip kayword arguments (named arguments), nes pries tai einantis nelimituotas skaicius positional argumentu yra supackinamas i `keys` lista. 
 
-Funkcijos `def with_previous(iterable, *, fillvalue=None)` sintakse rodo, kad yra su argumentai: `iterable` yra pozicinis, o `fillvalue` - keyword-only. Supackinimas buvo atliktas pries passinant `iterable` i funkcija. Jeigu jis nebutu atliktas, galima naudoti pries tai aprasyta sintakse. 
+Funkcijos `def with_previous(iterable, *, fillvalue=None)` sintakse rodo, kad yra du argumentai: `iterable` yra pozicinis, o `fillvalue` - keyword-only. Supackinimas buvo atliktas pries passinant `iterable` i funkcija. Jeigu jis nebutu atliktas, galima naudoti pries tai aprasyta sintakse. 
 ```py
 def with_previous(iterable, *, fillvalue=None):
     previous = fillvalue
@@ -66,6 +66,8 @@ def with_previous(iterable, *, fillvalue=None):
         yield previous, item
         previous = item
 ```
+
+Funkcijos `def headline(text, /, border="~", *, width=50)` sintakse rodo, kad `text` is a positional-only argument, `border` is a regular argument and `width` is a keyword-only argument. 
 
 For some reason this is called *tuple* unpacking: 
 ```py
@@ -79,4 +81,10 @@ Merging dicts (each subsequent dict overrides values in keys which duplicate):
 {**dict1, **dict2}
 ```
 ---------------------------------------------------------------------------------------------------
+
+**3.8. Assignment expressions**
+
+Assign and return a value in the same expression
+
+    print(walrus := True) # True
 
