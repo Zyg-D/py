@@ -21,6 +21,12 @@ Static type checkers:
 
 Using `def draw_line(direction: Literal["horizontal", "vertical"]) -> None` instead of `def draw_line(direction: str) -> None` will inform type checkers that other literals are not allowed. (`from typing import Literal` is required.)
 
+`Final` is for constants:
+```py
+from typing import Final
+ID: Final = 1
+```
+
 --------------------------------------------------------------------------
 **Tuple *unpacking***
 ```py
