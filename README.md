@@ -19,7 +19,7 @@ Static type checkers:
 - Pyre
 - Mypy
 
-Using `def draw_line(direction: Literal["horizontal", "vertical"]) -> None` instead of `def draw_line(direction: string) -> None` will inform type checkers that other literals are not allowed. 
+Using `def draw_line(direction: Literal["horizontal", "vertical"]) -> None` instead of `def draw_line(direction: string) -> None` will inform type checkers that other literals are not allowed. (`from typing import Literal` is required.)
 
 --------------------------------------------------------------------------
 **Tuple *unpacking***
