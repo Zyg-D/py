@@ -88,3 +88,7 @@ Assign and return a value in the same expression
 
     print(walrus := True) # True
 
+Can also be used inside formatted strings surrounded by parentheses
+
+    r = 3.8
+    f"Diameter is {(diam := 2 * r)}" # 'Diameter is 7.6'
