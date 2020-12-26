@@ -104,6 +104,11 @@ It prints both the expression and its value:
 python = 3.8
 f"{python=}" # 'python=3.8'
 ```
+Spces can be added around `=`, format specifiers can be used:
+```py
+name = "Eric"
+f"{name = :>10}" # 'name =       Eric'
+```
 
 -----------------------------------------------------------------------------------------------
 
