@@ -80,15 +80,30 @@ Merging dicts (each subsequent dict overrides values in keys which duplicate):
 ```py
 {**dict1, **dict2}
 ```
+
 ---------------------------------------------------------------------------------------------------
 
 **3.8. Assignment expressions**
 
 Assign and return a value in the same expression
-
-    print(walrus := True) # True
+```py
+print(walrus := True) # True
+```
 
 Can also be used inside formatted strings surrounded by parentheses
+```py
+r = 3.8
+f"Diameter is {(diam := 2 * r)}" # 'Diameter is 7.6'
+```
 
-    r = 3.8
-    f"Diameter is {(diam := 2 * r)}" # 'Diameter is 7.6'
+-------------------------------------------------------------------------------------------------------
+
+**3.8. `=` at the end of formatted string**  
+It prints both the expression and its value:
+```py
+python = 3.8
+f"{python=}" # 'python=3.8'
+```
+
+-----------------------------------------------------------------------------------------------
+
