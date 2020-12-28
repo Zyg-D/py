@@ -64,6 +64,10 @@ Finding the index given item name:
 
     ["foo", "bar", "baz"].index("bar")
 
+Replacing items:
+
+    lt[1], lt[2] = lt[2], lt[1]
+
 ----------------------------------------------------------------------------
 **tuples**  
 <sup>Tuples are unchangeable, or immutable</sup>
