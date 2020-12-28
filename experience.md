@@ -41,6 +41,26 @@ Loop through cols:
 
     for col in df.columns:
 
+Multiindex.from_tuples :
+
+```py
+import pandas as pd
+import numpy as np
+
+tuples = [(1, 'red'), (1, 'blue'),
+          (2, 'red'), (2, 'blue')]
+header = pd.MultiIndex.from_tuples(tuples, names=('number', 'color'))
+df = pd.DataFrame(np.random.randn(3, 4),
+                  index=['a','b','c'],
+                  columns=header)
+print(df)
+#   number         1                   2          
+#   color        red      blue       red      blue
+#   a       1.429644 -1.456978 -0.724916 -1.287699
+#   b       1.707773 -1.108309  0.529229 -1.601489
+#   c       1.159339 -1.395915 -1.426026  0.798999
+```
+
 ----------------------------------------------------------------------------
 **lists**
 
