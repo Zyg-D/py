@@ -74,6 +74,28 @@ print(df.xs('red', level='color', axis=1))
 #   c       0.136187  0.092231
 ```
 
+Transform df header from flat to multiindex:
+
+```py
+import pandas as pd
+df = pd.DataFrame({'ABCBase_CIP00': [1, 1, 1],
+                   'ABCBase_CIP02': [3, 3, 3],
+                   'ABC2_CIP00': [7, 7, 7],
+                   'ABC2_CIP02': [9, 9, 9] },
+                  index=['X', 'Y', 'Z'] )
+lt = []
+for col in df.columns:
+    cut = col.find('_')
+    lt.append((col[:cut], col[cut+1:]))
+df.columns = pd.MultiIndex.from_tuples(lt, names=('name', 'code'))
+print(df)
+#   name ABCBase        ABC2      
+#   code   CIP00 CIP02 CIP00 CIP02
+#   X          1     3     7     9
+#   Y          1     3     7     9
+#   Z          1     3     7     9
+```
+
 ----------------------------------------------------------------------------
 **lists**
 
