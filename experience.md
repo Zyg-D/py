@@ -41,7 +41,7 @@ Loop through cols:
 
     for col in df.columns:
 
-MultiIndex.from_tuples :
+MultiIndex.from_tuples  and slicing:
 
 ```py
 import pandas as pd
@@ -59,6 +59,12 @@ print(df)
 #   a       1.429644 -1.456978 -0.724916 -1.287699
 #   b       1.707773 -1.108309  0.529229 -1.601489
 #   c       1.159339 -1.395915 -1.426026  0.798999
+
+print(df.xs('red', level='color', axis=1))
+number         1         2
+#   a      -1.315971 -0.829633
+#   b       0.251705  1.201666
+#   c       0.136187  0.092231
 ```
 
 ----------------------------------------------------------------------------
