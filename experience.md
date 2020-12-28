@@ -41,7 +41,7 @@ Loop through cols:
 
     for col in df.columns:
 
-Multiindex.from_tuples :
+MultiIndex.from_tuples :
 
 ```py
 import pandas as pd
