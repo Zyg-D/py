@@ -96,6 +96,13 @@ r = 3.8
 f"Diameter is {(diam := 2 * r)}" # 'Diameter is 7.6'
 ```
 
+Recommended usage:  
+Simplifying list comprehensions
+```py
+old = [(lambda y: [y,x/y])(x+1) for x in range(5)]
+new = [[y := x+1, x/y] for x in range(5)]
+print(old == new) # True
+```
 -------------------------------------------------------------------------------------------------------
 
 **3.8. `=` at the end of formatted string**  
