@@ -157,7 +157,11 @@ Adding values:
 
     mydict[key_name] = a_value
 
-Referencing the 1st element (but no order is guaranteed in dicts):
+Deleting keys:
+
+    del mydict[key_name]
+
+Referencing the 1st element (order is only guaranteed in dicts from 3.7):
 
     list(mydict.keys())[0]
     
@@ -165,6 +169,21 @@ Referencing the value of a specified key:
 <sup>default is returned shen the key is not found</sup>
 
     mydict.get('key_name'[, default])
+
+----------------------------------------------------------------------------
+**sets**
+
+Adding an empty set:
+
+    myset = set()
+
+Adding item:
+
+    myset.add(item)
+
+Deleting item:
+
+    myset.remove(item)
 
 ----------------------------------------------------------------------------
 **importing .json**
