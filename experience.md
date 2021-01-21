@@ -2,26 +2,26 @@
 **df spark**
 
 Filter df:
-```py
-df = df.filter(df.distance > 2000)
-```
+
+    df = df.filter(df.distance > 2000)
 
 group + aggregate
 
-One column values become index column:
-```py
-tf_pdf = dfSrc.toPandas()
-tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame()
-```
-Index column is moved to regular column:
-```py
-tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame().reset_index()
-```
+1- One column values become index column:
+
+    tf_pdf = dfSrc.toPandas()
+    tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame()
+
+2- Index column is moved to regular column:
+
+    tf_pdf = dfSrc.toPandas()
+    tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame().reset_index()
+
 
 
 
 -------------------------------------------------------------------------------
-**dataframes (pandas)**
+**df (pandas)**
 
 Create an empty df:
 
@@ -66,9 +66,21 @@ Deleting a col by col name
 
     df = df.drop('column_name', 1)
 
+Count of cols (w/o index):
+
+    len(df.columns)
+
 Loop through cols: 
 
     for col in df.columns:
+
+Sorting
+
+    df = df.sort_values(by=['col_by'], ascending=False)
+
+Keeping only top 5 rows:
+
+    df = df.sort_values(by=['col_by'], ascending=False).head(5)
 
 MultiIndex.from_tuples  and slicing:
 
