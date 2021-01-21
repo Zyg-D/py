@@ -2,11 +2,21 @@
 **df spark**
 
 Filter df:
-
 ```py
 df = df.filter(df.distance > 2000)
 ```
 
+group + aggregate
+
+One column values become index column:
+```py
+tf_pdf = dfSrc.toPandas()
+tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame()
+```
+Index column is moved to regular column:
+```py
+tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame().reset_index()
+```
 
 
 
