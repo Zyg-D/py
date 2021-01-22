@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
-**df spark**
+**DF spark**
 
-Filter df:
+Filter DF rows:
 
     df = df.filter(df.distance > 2000)
 
-group + aggregate
+Group + aggregate
 
 1- One column values become index column:
 
@@ -17,7 +17,22 @@ group + aggregate
     tf_pdf = dfSrc.toPandas()
     tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame().reset_index()
 
+Select specified cols from DF
 
+    DF2 = DF1.select(['col1','col2'])
+
+Show DF
+
+    DF.show()
+    DF.show(truncate=False)
+
+Join DFs
+
+```py
+DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
+# Possible complex criteria: 
+DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
+```
 
 
 -------------------------------------------------------------------------------
