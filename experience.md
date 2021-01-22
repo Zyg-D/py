@@ -26,7 +26,7 @@ Show DF
     DF.show()
     DF.show(truncate=False)
 
-Join DFs
+Join DFs (more examples in Google Drive)
 
 ```py
 DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
