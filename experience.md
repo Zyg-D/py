@@ -37,8 +37,14 @@ DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary=
 Other
 
 ```py
+F.current_date()
+
+F.current_timestamp()
+
+F.year(F.current_date())
+
 def days(num):
-return F.expr(f'interval {num} days')
+  return F.expr(f'interval {num} days')
 F.col('last_positive_date') + days(37)
 
 df.groupby('patient_id').agg(
