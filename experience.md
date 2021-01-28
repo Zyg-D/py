@@ -37,29 +37,29 @@ DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary=
 Other
 
 ```py
-    def days(num):
-    	return F.expr(f'interval {num} days')
-    F.col('last_positive_date') + days(37)
-    
-    df.groupby('patient_id').agg(
-        F.max('test_performed').alias('test_performed'),
-        F.max('lab_result_positive_bool').alias('if_ever_positive')
-    
-    df_group.where(F.col('test_type_id').isin({'1477', '1537', '1557'}))
-    
-    df.withColumn('gmp_indication', F.when(F.col('gmp_promo_code').isNull(), F.lit('profilaktika'))
-                                     .when(F.col('gmp_promo_code').contains('SIMPT'), F.lit('simptomai')) )
-    
-    from pyspark.sql import functions as F, Window
-    w = Window.partitionBy('col1', 'col2').orderBy(  # false comes before true when ordering in sql
-        F.col('gmp_patient_municipality_name').isNull(),
-        F.col('sender_completion_status') != 'Užbaigta vesti',
-        F.desc('sender_form_id'),
-    )
-    df = df.withColumn('sender_form_rank', F.row_number().over(w))
-    
-    
-    
+def days(num):
+return F.expr(f'interval {num} days')
+F.col('last_positive_date') + days(37)
+
+df.groupby('patient_id').agg(
+F.max('test_performed').alias('test_performed'),
+F.max('lab_result_positive_bool').alias('if_ever_positive')
+
+df_group.where(F.col('test_type_id').isin({'1477', '1537', '1557'}))
+
+df.withColumn('gmp_indication', F.when(F.col('gmp_promo_code').isNull(), F.lit('profilaktika'))
+			     .when(F.col('gmp_promo_code').contains('SIMPT'), F.lit('simptomai')) )
+
+from pyspark.sql import functions as F, Window
+w = Window.partitionBy('col1', 'col2').orderBy(  # false comes before true when ordering in sql
+  F.col('gmp_patient_municipality_name').isNull(),
+  F.col('sender_completion_status') != 'Užbaigta vesti',
+  F.desc('sender_form_id'),
+)
+df = df.withColumn('sender_form_rank', F.row_number().over(w))
+
+
+
 ```
 
 -------------------------------------------------------------------------------
