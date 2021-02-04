@@ -25,8 +25,8 @@ Filter DF rows:
 # requires import pyspark.sql.functions as F
 3  df = df.filter(F.col('distance') > 2000)
 4  df = df.filter(
-        ((f.col('col1') != f.col('col3')) | 
-         (f.col('col2') != f.col('col4')) & (f.col('col1') == f.col('col3')) ) )
+        ((F.col('col1') != F.col('col3')) | 
+         (F.col('col2') != F.col('col4')) & (F.col('col1') == F.col('col3')) ) )
 ```
 
 Group + aggregate
