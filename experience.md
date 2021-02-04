@@ -1,6 +1,22 @@
 -------------------------------------------------------------------------------
 **DF spark**
 
+Create example DF:
+```python
+import pyspark
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
+
+dept = [("Marketing",10), \
+          ("Finance",20), \
+            ("Sales",30), \
+               ("IT",40) \
+       ]
+deptCols = ["dept_name","dept_id"]
+df = spark.createDataFrame(data=dept, schema = deptCols)
+```
+
 Filter DF rows:
 
     df = df.filter(df.distance > 2000)
