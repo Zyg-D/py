@@ -21,8 +21,12 @@ Filter DF rows:
 
 ```python
 1  df = df.filter(df.distance > 2000) # repeated df
-2  df = df.filter(F.col('distance') > 2000) # requires import pyspark.sql.functions as F
-3  df = df.filter('d<5 and (col1 <> col3 or (col1 = col3 and col2 <> col4))')
+2  df = df.filter('d<5 and (col1 <> col3 or (col1 = col3 and col2 <> col4))')
+# requires import pyspark.sql.functions as F
+3  df = df.filter(F.col('distance') > 2000)
+4  df = df.filter(
+        ((f.col('col1') != f.col('col3')) | 
+         (f.col('col2') != f.col('col4')) & (f.col('col1') == f.col('col3')) ) )
 ```
 
 Group + aggregate
