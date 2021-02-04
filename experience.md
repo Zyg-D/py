@@ -17,6 +17,16 @@ deptCols = ["dept_name","dept_id"]
 df = spark.createDataFrame(data=dept, schema = deptCols)
 ```
 
+Foundry:
+```python
+def my_compute_function(ctx, ...):
+    ...
+    cols = ["col1", "col2"]
+    data_lst = [("d1", 10),
+                ("d2", 20)]
+    df = ctx.spark_session.createDataFrame(data=data_lst, schema=cols)
+```
+
 Filter DF rows:
 
 ```python
