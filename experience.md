@@ -27,6 +27,14 @@ def my_compute_function(ctx, ...):
     df = ctx.spark_session.createDataFrame(data=data_lst, schema=cols)
 ```
 
+Modify/ rename all columns in DF: 
+```python
+df = df.toDF(*[f'v_{c}' for c in tp_v.columns])
+# or
+new_column_name_list = [map(lambda x: x.replace(" ", "_"), df.columns)]
+df = df.toDF(*new_column_name_list)
+```
+
 Filter DF rows:
 
 ```python
