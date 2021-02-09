@@ -25,6 +25,9 @@ def my_compute_function(ctx, ...):
     data_lst = [("d1", 10),
                 ("d2", 20)]
     df = ctx.spark_session.createDataFrame(data=data_lst, schema=cols)
+    # Or simply
+    answer = 2
+    df = ctx.spark_session.createDataFrame([("d1", answer)], ["c1", "c2"])
 ```
 
 Modify/ rename all columns in DF: 
