@@ -59,12 +59,16 @@ df.orderBy(F.col('e_snf.snf_san_data').desc_nulls_last())
 
 Group + aggregate
 
-1- One column values become index column:
+1- No Pandas
+
+    df.groupby(F.col('e_cbi.cbi_id')).agg(F.max('e_cbi.ist_data').alias('data'))
+
+2- One column values become index column:
 
     tf_pdf = dfSrc.toPandas()
     tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame()
 
-2- Index column is moved to regular column:
+3- Index column is moved to regular column:
 
     tf_pdf = dfSrc.toPandas()
     tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame().reset_index()
