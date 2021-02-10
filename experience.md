@@ -73,6 +73,14 @@ Group + aggregate
     tf_pdf = dfSrc.toPandas()
     tf_grouped = tf_pdf.groupby('col_transformed_to_index')['col_to_aggregate'].sum().to_frame().reset_index()
 
+Window
+
+```python
+df03 = df02.withColumn('rn', F.row_number().over(
+    W.partitionBy(F.col('e_snf.bucket')).orderBy(F.col('e_snf.date').desc_nulls_last())
+))
+```
+
 Select specified cols from DF
 
     DF2 = DF1.select(['col1','col2'])
