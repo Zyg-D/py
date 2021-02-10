@@ -50,6 +50,13 @@ Filter DF rows:
          (F.col('col2') != F.col('col4')) & (F.col('col1') == F.col('col3')) ) )
 ```
 
+Order by
+
+```python
+df.orderBy(F.col('e_snf.snf_san_data').desc_nulls_last())
+                                      .asc_nulls_first()
+```
+
 Group + aggregate
 
 1- One column values become index column:
