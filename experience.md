@@ -76,6 +76,7 @@ Group + aggregate
 Window
 
 ```python
+from pyspark.sql import Window as W
 df03 = df02.withColumn('rn', F.row_number().over(
     W.partitionBy(F.col('e_snf.bucket')).orderBy(F.col('e_snf.date').desc_nulls_last())
 ))
