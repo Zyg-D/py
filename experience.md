@@ -6,7 +6,7 @@ Create example DF:
 import pyspark
 from pyspark.sql import SparkSession
 
-spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
+spark = SparkSession.builder.getOrCreate()
 
 dept = [("Marketing",10), \
           ("Finance",20), \
