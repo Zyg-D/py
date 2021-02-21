@@ -99,6 +99,20 @@ DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
 DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
 ```
 
+DF from online json
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+from urllib.request import urlopen
+
+spark = SparkSession.builder.getOrCreate()
+
+url = 'https://randomuser.me/api/0.8/?results=10'
+jsonData = urlopen(url).read().decode('utf-8')
+rdd = spark.sparkContext.parallelize([jsonData])
+df = spark.read.json(rdd)
+```
+
 Other
 
 ```py
