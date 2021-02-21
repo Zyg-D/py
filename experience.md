@@ -50,6 +50,11 @@ Filter DF rows:
          (F.col('col2') != F.col('col4')) & (F.col('col1') == F.col('col3')) ) )
 ```
 
+Keeping only top 5 rows:
+```python
+df.limit(5)
+```
+
 Order by
 
 ```python
