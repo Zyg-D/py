@@ -114,6 +114,17 @@ rdd = spark.sparkContext.parallelize([jsonData])
 df = spark.read.json(rdd)
 ```
 
+Raw to clean
+
+```python
+from transforms.verbs import columns as V
+from ..utils import clean_null_int_to_string, hash_personal_id
+
+clean_null_int_to_string('GV_ID').alias('gv_id'), # int -> str
+V.trim_to_null('NAMO_N').alias('namo_n'), # str -> str
+hash_personal_id('AK').cast('string').alias('ak'),
+```
+
 Other
 
 ```py
