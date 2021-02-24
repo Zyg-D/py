@@ -79,6 +79,10 @@ df03 = df02.withColumn('rn', F.row_number().over(
 ))
 ```
 
+Regex match
+
+    df = df.withColumn('new_c', F.when(F.col('d1').rlike('^.*\d1$'), 'match'))
+
 Select specified cols from DF
 
     DF2 = DF1.select(['col1','col2'])
