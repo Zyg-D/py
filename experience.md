@@ -83,6 +83,14 @@ Regex match
 
     df = df.withColumn('new_c', F.when(F.col('d1').rlike('^.*\d1$'), 'match'))
 
+Coalesce
+
+```python
+df = df.selectExpr('coalesce(m.ari_asm_id, e_snf.snf_ji_asm_nr) as m_id')
+df = df.select(F.coalesce('m.ari_asm_id', 'e_snf.snf_ji_asm_nr').alias('m_id'))
+df = df.select(F.coalesce(F.col('m.ari_asm_id'), F.col('e_snf.snf_ji_asm_nr')).alias('m_id'))
+```
+
 Select specified cols from DF
 
     DF2 = DF1.select(['col1','col2'])
