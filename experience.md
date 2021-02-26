@@ -55,6 +55,16 @@ Keeping only top 5 rows:
 df.limit(5)
 ```
 
+Keep only top rows:
+```python
+df_filt = df.withColumn('rn', F.row_number().over(
+W.partitionBy(F.col('asm_id')) \
+ .orderBy(
+    F.col('data').desc_nulls_last(),
+)
+)).filter('rn = 1').drop('rn')
+```
+
 Order by
 
 ```python
