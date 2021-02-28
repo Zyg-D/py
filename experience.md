@@ -3,7 +3,6 @@
 
 Create example DF:
 ```python
-import pyspark
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
@@ -15,6 +14,33 @@ dept = [("Marketing",10), \
        ]
 deptCols = ["dept_name","dept_id"]
 df = spark.createDataFrame(data=dept, schema = deptCols)
+```
+
+Create RDD:
+
+```python
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
+sc = spark.sparkContext
+dept = [("Marketing",10), \
+          ("Finance",20), \
+            ("Sales",30), \
+       ]
+rdd = sc.parallelize(dept)
+# .collect() reikalingas, kad butu galima print(rddCollect)
+rddCollect = rdd.collect()
+```
+
+RDD to DF:
+
+```python
+# Auto-generated col names
+df = rdd.toDF()
+# Providing col names
+colNames = ["dept_name","dept_id"]
+df = rdd.toDF(colNames)
 ```
 
 Foundry:
