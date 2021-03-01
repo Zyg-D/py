@@ -24,26 +24,18 @@ from pyspark.sql import functions as F
 spark = SparkSession.builder.getOrCreate()
 df = spark.range(1, 4).select(F.col('id').cast('int'))
 
-# One col - anything, auto-generates col name 'value'
+# One col - anything, auto-generated col name renamed to 'colName'
 from pyspark.sql import SparkSession
 from pyspark.sql.types import IntegerType
 spark = SparkSession.builder.getOrCreate()
-df = spark.createDataFrame([1, 2, 3], IntegerType())
+df = spark.createDataFrame([1, 2, 3], IntegerType()).toDF('colName')
 
-# One col - anything, auto-generates col name '_1'
+# One col - anything, col name provided
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 sc = spark.sparkContext
 rdd = sc.parallelize([1,2,3])
-df = rdd.map(lambda x: (x, )).toDF()
-
-# One col - anthing, col name provided
-from pyspark.sql import SparkSession, Row
-spark = SparkSession.builder.getOrCreate()
-sc = spark.sparkContext
-rdd = sc.parallelize([1,2,3])
-row = Row("colName")
-df = rdd.map(row).toDF()
+df = rdd.map(lambda x: (x, )).toDF(['colName'])
 ```
 
 Create RDD:
