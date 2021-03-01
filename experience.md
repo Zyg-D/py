@@ -8,13 +8,12 @@ from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 
-dept = [("Marketing",10), \
-          ("Finance",20), \
-            ("Sales",30), \
-               ("IT",40) \
-       ]
-deptCols = ["dept_name","dept_id"]
-df = spark.createDataFrame(data=dept, schema = deptCols)
+deptCols = [ "dept_name","dept_id"]
+dept =     [("Marketing", 10),
+            (  "Finance", 20),
+            (    "Sales", 30),
+            (       "IT", 40)]
+df = spark.createDataFrame(data=dept, schema=deptCols)
 ```
 
 ```python
@@ -46,10 +45,9 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 
 sc = spark.sparkContext
-dept = [("Marketing",10), \
-          ("Finance",20), \
-            ("Sales",30), \
-       ]
+dept = [("Marketing", 10),
+        (  "Finance", 20),
+        (    "Sales", 30)]
 rdd = sc.parallelize(dept)
 # .collect() reikalingas, kad butu galima print(rddCollect)
 rddCollect = rdd.collect()
@@ -61,7 +59,7 @@ RDD to DF:
 # Auto-generated col names
 df = rdd.toDF()
 # Providing col names
-colNames = ["dept_name","dept_id"]
+colNames = ["dept_name", "dept_id"]
 df = rdd.toDF(colNames)
 ```
 
