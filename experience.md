@@ -3,6 +3,7 @@
 
 Create example DF:
 ```python
+# Several cols:
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
@@ -14,6 +15,35 @@ dept = [("Marketing",10), \
        ]
 deptCols = ["dept_name","dept_id"]
 df = spark.createDataFrame(data=dept, schema = deptCols)
+```
+
+```python
+# One col - numbers in range, col name provided
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+spark = SparkSession.builder.getOrCreate()
+df = spark.range(1, 4).select(F.col('id').cast('int'))
+
+# One col - anything, auto-generates col name 'value'
+from pyspark.sql import SparkSession
+from pyspark.sql.types import IntegerType
+spark = SparkSession.builder.getOrCreate()
+df = spark.createDataFrame([1, 2, 3], IntegerType())
+
+# One col - anything, auto-generates col name '_1'
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+sc = spark.sparkContext
+rdd = sc.parallelize([1,2,3])
+df = rdd.map(lambda x: (x, )).toDF()
+
+# One col - anthing, col name provided
+from pyspark.sql import SparkSession, Row
+spark = SparkSession.builder.getOrCreate()
+sc = spark.sparkContext
+rdd = sc.parallelize([1,2,3])
+row = Row("colName")
+df = rdd.map(row).toDF()
 ```
 
 Create RDD:
