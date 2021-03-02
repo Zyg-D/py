@@ -17,23 +17,23 @@ df = spark.createDataFrame(data=dept, schema=deptCols)
 ```
 
 ```python
-# One col - numbers in range, col name provided
+# One col - numbers in range
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 spark = SparkSession.builder.getOrCreate()
 df = spark.range(1, 4).select(F.col('id').cast('int'))
 
-# One col - anything, auto-generated col name renamed to 'colName'
+# One col - list of any values
 from pyspark.sql import SparkSession
 from pyspark.sql.types import IntegerType
 spark = SparkSession.builder.getOrCreate()
 df = spark.createDataFrame([1, 2, 3], IntegerType()).toDF('colName')
 
-# One col - anything, col name provided
+# One col - list of any values
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 sc = spark.sparkContext
-rdd = sc.parallelize([1,2,3])
+rdd = sc.parallelize([1, 2, 3])
 df = rdd.map(lambda x: (x, )).toDF(['colName'])
 ```
 
