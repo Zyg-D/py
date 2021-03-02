@@ -8,12 +8,14 @@ from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 
-deptCols = [ "dept_name","dept_id"]
-dept =     [("Marketing", 10),
-            (  "Finance", 20),
-            (    "Sales", 30),
-            (       "IT", 40)]
+deptCols = [ 'dept_name', 'dept_id']
+dept =     [('Marketing', 10),
+            (  'Finance', 20),
+            (    'Sales', 30),
+            (       'IT', 40)]
 df = spark.createDataFrame(data=dept, schema=deptCols)
+# OR
+df = spark.createDataFrame([(1, 11), (2, 22)], ['c1', 'c2'])
 ```
 
 ```python
