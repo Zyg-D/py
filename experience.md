@@ -67,7 +67,7 @@ df = rdd.toDF(colNames)
 
 RDD from local txt:
 
-```pyhon
+```python
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 rdd = spark.sparkContext.textFile("C:/Temp/sample.txt")
