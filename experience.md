@@ -39,7 +39,7 @@ rdd = sc.parallelize([1, 2, 3])
 df = rdd.map(lambda x: (x, )).toDF(['colName'])
 ```
 
-Create RDD:
+Create example RDD:
 
 ```python
 from pyspark.sql import SparkSession
@@ -64,6 +64,33 @@ df = rdd.toDF()
 colNames = ["dept_name", "dept_id"]
 df = rdd.toDF(colNames)
 ```
+
+RDD from local txt:
+
+```pyhon
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+rdd = spark.sparkContext.textFile("C:/Temp/sample.txt")
+```
+
+RDD, DF from online json (more in drive)
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+from urllib.request import urlopen
+
+spark = SparkSession.builder.getOrCreate()
+
+url = 'https://randomuser.me/api/0.8/?results=10'
+jsonData = urlopen(url).read().decode('utf-8')
+rdd = spark.sparkContext.parallelize([jsonData])
+df = spark.read.json(rdd)
+```
+
+Missing:  
+RDD, DF from online csv - searched; probably does not exist  
+RDD, DF from local csv  
+DF from local txt  
 
 Foundry:
 ```python
@@ -153,32 +180,13 @@ Show DF
     DF.show()
     DF.show(truncate=False)
 
-Join DFs (more examples in Google Drive)
+Join DFs (more in drive)
 
 ```py
 DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
 # Possible complex criteria: 
 DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
 ```
-
-DF from online json (more in drive)
-```python
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as F
-from urllib.request import urlopen
-
-spark = SparkSession.builder.getOrCreate()
-
-url = 'https://randomuser.me/api/0.8/?results=10'
-jsonData = urlopen(url).read().decode('utf-8')
-rdd = spark.sparkContext.parallelize([jsonData])
-df = spark.read.json(rdd)
-```
-
-Missing:  
-DF from online csv - searched; probably does not exist  
-DF from local csv  
-DF from local txt  
 
 Raw to clean
 
