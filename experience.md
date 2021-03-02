@@ -161,7 +161,7 @@ DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
 DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
 ```
 
-DF from online json
+DF from online json (more in drive)
 ```python
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -174,6 +174,11 @@ jsonData = urlopen(url).read().decode('utf-8')
 rdd = spark.sparkContext.parallelize([jsonData])
 df = spark.read.json(rdd)
 ```
+
+Missing:  
+DF from online csv - searched; probably does not exist  
+DF from local csv  
+DF from local txt  
 
 Raw to clean
 
