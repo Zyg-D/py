@@ -61,16 +61,20 @@ RDD to DF:
 # Auto-generated col names
 df = rdd.toDF()
 # Providing col names
-colNames = ["dept_name", "dept_id"]
-df = rdd.toDF(colNames)
+df = rdd.toDF(['dept_name', 'dept_id'])
 ```
 
-RDD from local txt:
+RDD, DF from local txt:
 
 ```python
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
-rdd = spark.sparkContext.textFile("C:/Temp/sample.txt")
+rdd = spark.sparkContext.textFile('C:/Temp/sample.txt')
+header = rdd.first()
+dataLines = rdd.filter(lambda line: line != header)
+sep = ','
+dataMap = dataLines.map(lambda k: k.split(sep))
+df=dataMap.toDF(header.split(sep))
 ```
 
 RDD, DF from online json (more in drive)
@@ -90,7 +94,6 @@ df = spark.read.json(rdd)
 Missing:  
 RDD, DF from online csv - searched; probably does not exist  
 RDD, DF from local csv  
-DF from local txt  
 
 Foundry:
 ```python
