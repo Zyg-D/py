@@ -47,12 +47,11 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 
 sc = spark.sparkContext
-dept = [("Marketing", 10),
-        (  "Finance", 20),
-        (    "Sales", 30)]
+dept = [('Marketing', 10),
+        (  'Finance', 20),
+        (    'Sales', 30)]
 rdd = sc.parallelize(dept)
-# .collect() reikalingas, kad butu galima print(rddCollect)
-rddCollect = rdd.collect()
+# print(rdd.collect())
 ```
 
 RDD to DF:
@@ -74,7 +73,7 @@ header = rdd.first()
 dataLines = rdd.filter(lambda line: line != header)
 sep = ','
 dataMap = dataLines.map(lambda k: k.split(sep))
-df=dataMap.toDF(header.split(sep))
+df = dataMap.toDF(header.split(sep))
 ```
 
 RDD, DF from online json (more in drive)
@@ -100,14 +99,14 @@ Foundry:
 def my_compute_function(ctx, ...):
     ...
     answer = 2
-    df = ctx.spark_session.createDataFrame([("d1", answer)], ["c1", "c2"])
+    df = ctx.spark_session.createDataFrame([('d1', answer)], ['c1', 'c2'])
 ```
 
 Modify/ rename all columns in DF: 
 ```python
 df = df.toDF(*[f'v_{c}' for c in tp_v.columns])
 # or
-new_column_name_list = [map(lambda x: x.replace(" ", "_"), df.columns)]
+new_column_name_list = [map(lambda x: x.replace(' ', '_'), df.columns)]
 df = df.toDF(*new_column_name_list)
 ```
 
