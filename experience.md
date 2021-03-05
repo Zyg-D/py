@@ -110,6 +110,10 @@ new_column_name_list = [map(lambda x: x.replace(' ', '_'), df.columns)]
 df = df.toDF(*new_column_name_list)
 ```
 
+DF column datatype:
+
+    dict(df.dtypes)['colName']
+
 Filter DF rows:
 
 ```python
