@@ -198,7 +198,9 @@ Raw to clean
 
 ```python
 from transforms.verbs import columns as V
-from ..utils import clean_int_to_string, hash_personal_id
+from ..utils import to_date, clean_int_to_string, hash_personal_id
+
+df = raw.toDF(*[c.lower() for c in raw.columns])
 
 # clean_null_int_to_string('gv_id'), # int -> str SENAS
 clean_int_to_string('kodas'), #int/float -> str
