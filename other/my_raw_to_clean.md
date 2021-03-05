@@ -18,7 +18,7 @@ def generate_transforms(names):
             cols_to_drop = [k for k, v in dict(inp.dtypes).items() if v == 'string']
             df = inp.drop(*cols_to_drop)
             for c in df.columns:
-                df = df.withColumn(f'__{c}', F.col(c) % 1).drop(c)
+                df = df.withColumn(f'__{c}', F.abs(F.col(c)) % 1).drop(c)
             df = df.withColumn('fake_col', F.lit(0))
             df = df.groupBy('fake_col').max()
             df = df.toDF(*[c.replace('(', '').replace(')', '') for c in df.columns])
