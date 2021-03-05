@@ -198,12 +198,13 @@ Raw to clean
 
 ```python
 from transforms.verbs import columns as V
-from ..utils import clean_null_int_to_string, hash_personal_id
+from ..utils import clean_int_to_string, hash_personal_id
 
-clean_null_int_to_string('GV_ID').alias('gv_id'), # int -> str SENAS
-F.col('KODAS').cast('string').alias('kodas'), # int -> str
-V.trim_to_null('NAMO_N').alias('namo_n'), # str -> str
-hash_personal_id('AK').cast('string').alias('ak'),
+# clean_null_int_to_string('gv_id'), # int -> str SENAS
+clean_int_to_string('kodas'), #int/float -> str
+
+V.trim_to_null('namo_n'), # str -> str
+hash_personal_id('ak').cast('string'),
 ```
 
 Other
