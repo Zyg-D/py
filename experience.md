@@ -117,10 +117,10 @@ DF column datatype:
 DF col name:
 
 ```python
-# These can produce different results
-answer = F.col('c1')._jc.toString()
-answer = F.col('c1').__repr__()
-answer = F.col('c1').__str__()
+# These can return different results
+F.col('c1')._jc.toString()
+F.col('c1').__repr__()
+F.col('c1').__str__()
 ```
 
 Filter DF rows:
