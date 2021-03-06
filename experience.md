@@ -114,6 +114,15 @@ DF column datatype:
 
     dict(df.dtypes)['colName']
 
+DF col name:
+
+```python
+# These can produce different results
+answer = F.col('c1')._jc.toString()
+answer = F.col('c1').__repr__()
+answer = F.col('c1').__str__()
+```
+
 Filter DF rows:
 
 ```python
