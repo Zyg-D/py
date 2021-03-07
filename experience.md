@@ -85,7 +85,7 @@ Foundry:
 def my_compute_function(ctx, ...):
     ...
     answer = 2
-    df = ctx.spark_session.createDataFrame([('d1', answer)], ['c1', 'c2'])
+    df = ctx.spark_session.createDataFrame([(answer,)], ['c1'])
 ```
 
 Modify/ rename all columns in DF: 
@@ -96,11 +96,11 @@ new_column_name_list = [map(lambda x: x.replace(' ', '_'), df.columns)]
 df = df.toDF(*new_column_name_list)
 ```
 
-DF column datatype:
+Get DF column datatype:
 
     dict(df.dtypes)['colName']
 
-DF col name:
+Get DF col name:
 
 ```python
 # These can return different results
