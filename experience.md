@@ -3,11 +3,12 @@
 
 Create example DF:
 ```python
-# Several cols:
+
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 
+# Several cols:
 deptCols = [ 'dept_name', 'dept_id']
 dept =     [('Marketing', 10),
             (  'Finance', 20),
@@ -16,27 +17,12 @@ dept =     [('Marketing', 10),
 df = spark.createDataFrame(data=dept, schema=deptCols)
 # OR
 df = spark.createDataFrame([(1, 11), (2, 22)], ['c1', 'c2'])
-```
 
-```python
-# One col - numbers in range
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as F
-spark = SparkSession.builder.getOrCreate()
-df = spark.range(1, 4).select(F.col('id').cast('int'))
+# One col - values of the same type
+df = spark.createDataFrame([(1,),(2,)], ['c'])
 
-# One col - list of any values
-from pyspark.sql import SparkSession
-from pyspark.sql.types import IntegerType
-spark = SparkSession.builder.getOrCreate()
-df = spark.createDataFrame([1, 2, 3], IntegerType()).toDF('colName')
-
-# One col - list of any values
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.getOrCreate()
-sc = spark.sparkContext
-rdd = sc.parallelize([1, 2, 3])
-df = rdd.map(lambda x: (x, )).toDF(['colName'])
+# One col - numbers in range, optionally change default col name 'id'
+df = spark.range(1, 4).toDF('colName')
 ```
 
 Create example RDD:
