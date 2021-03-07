@@ -18,11 +18,10 @@ df = spark.createDataFrame(data=dept, schema=deptCols)
 # OR
 df = spark.createDataFrame([(1, 11), (2, 22)], ['c1', 'c2'])
 
-# One col - values of the same type
+# One col
 df = spark.createDataFrame([(1,),(2,)], ['c'])
-
-# One col - numbers in range, optionally change default col name 'id'
-df = spark.range(1, 4).toDF('colName')
+df = spark.createDataFrame([1,2], 'int').toDF('c')
+df = spark.range(1, 4).toDF('c')
 ```
 
 Create example RDD:
