@@ -488,16 +488,26 @@ Option 2
 import win32gui
 def myF(hwnd, lParam):
     if win32gui.IsWindowVisible(hwnd):
-        if win32gui.GetWindowText(hwnd) == "FRANKONAS":
+        if win32gui.GetWindowText(hwnd) == 'FRANKONAS':
             win32gui.SetForegroundWindow(hwnd)
 # Passing the handle of each window, to an application-defined callback function (in this case: myF)
 win32gui.EnumWindows(myF, None)
 ```
 
 ----------------------------------------------------------------------------
-**Read file contents**
+**Read txt, csv file contents**
 ```py
-a = open("C:\\Temp\\test.txt", "r")
-a.read()
+file = open(r'C:\Temp\test.txt', 'r', encoding='cp1257')
+# String of full contents
+print(file.read())
+# List of lines
+print(file.readlines())
 ```
 
+**Read specified lines in txt, csv**
+```python
+file = open(r'C:\Temp\test.txt', 'r', encoding='cp1257')
+lines = file.readlines()
+for i in list(range(2)):
+    print(lines[i])
+```
