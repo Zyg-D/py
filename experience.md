@@ -48,6 +48,16 @@ df = rdd.toDF()
 df = rdd.toDF(['dept_name', 'dept_id'])
 ```
 
+DF from dictionary list (list of dicts)
+
+```python
+# deprecated
+df = spark.createDataFrame(data)
+# OR
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(**i) for i in data])
+```
+
 RDD, DF from local txt:
 
 ```python
