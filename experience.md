@@ -454,6 +454,10 @@ Referencing the value of a specified key:
 
     mydict.get('key_name'[, default])
 
+Dict comprehension
+
+    dict_comp = {x:y for x, y in [('a', 1), ('b', 2)]}
+
 ----------------------------------------------------------------------------
 **sets**
 
