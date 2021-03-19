@@ -6,6 +6,31 @@ My own example file:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Zyg-D/py/master?filepath=jupyter%2F201210.ipynb)
 
 --------------------------------------------------------------------------
+**Check Python version**
+
+    python --version
+
+**Check python package version**
+
+    pip show pyspark
+    pip freeze
+    pip list
+    pip list | findstr pyspark
+
+**List available package versions**
+
+    pip install --use-deprecated=legacy-resolver pyspark==
+
+**Install specific package version** (on top of another)
+
+    pip install pyspark==3.0.2
+
+**Install or upgrade to the latest package version**
+
+    pip install --upgrade pyspark
+
+---------------------------------------------------------------------------
+
 **Type hints**
 ```py
 def double(number: float) -> float:
