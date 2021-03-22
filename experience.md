@@ -24,6 +24,14 @@ df = spark.createDataFrame([1,2], 'int').toDF('c')
 df = spark.range(1, 4).toDF('c')
 ```
 
+(Foundry)
+```python
+def my_compute_function(ctx, ...):
+    ...
+    answer = 2
+    df = ctx.spark_session.createDataFrame([(answer,)], ['c1'])
+```
+
 Create example RDD:
 
 ```python
@@ -51,16 +59,6 @@ df = rdd.toDF(['dept_name', 'dept_id'])
 DF to RDD:
 
     rdd = df.rdd
-
-DF from dictionary list (list of dicts)
-
-```python
-# deprecated
-df = spark.createDataFrame(data)
-# OR
-from pyspark.sql import Row
-df = spark.createDataFrame([Row(**i) for i in data])
-```
 
 RDD, DF from local txt:
 
@@ -90,24 +88,25 @@ rdd = spark.sparkContext.parallelize([jsonData])
 df = spark.read.json(rdd)
 ```
 
-DF from local CSV
+RDD, DF from local CSV
 
 ```python
 df = spark.read.csv(r'C:\Temp\test.csv', header=True)
-df = spark.read.format('csv').option('header', 'true').load(r'C:\Temp\test.csv')
+rdd = df.rdd
 ```
 
-
-**Missing:**  
-RDD from local csv  
+Missing:  
 RDD, DF from online csv - searched; probably does not exist   
 
-Foundry:
+
+DF from dictionary list (list of dicts)
+
 ```python
-def my_compute_function(ctx, ...):
-    ...
-    answer = 2
-    df = ctx.spark_session.createDataFrame([(answer,)], ['c1'])
+# deprecated
+df = spark.createDataFrame(data)
+# OR
+from pyspark.sql import Row
+df = spark.createDataFrame([Row(**i) for i in data])
 ```
 
 Modify/ rename all columns in DF: 
