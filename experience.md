@@ -48,6 +48,10 @@ df = rdd.toDF()
 df = rdd.toDF(['dept_name', 'dept_id'])
 ```
 
+DF to RDD:
+
+    rdd = df.rdd
+
 DF from dictionary list (list of dicts)
 
 ```python
