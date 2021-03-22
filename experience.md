@@ -89,6 +89,7 @@ df = spark.read.json(rdd)
 DF from local CSV
 
 ```python
+df = spark.read.csv(r'C:\Temp\test.csv', header=True)
 df = spark.read.format('csv').option('header', 'true').load(r'C:\Temp\test.csv')
 ```
 
