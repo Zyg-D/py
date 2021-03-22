@@ -72,6 +72,7 @@ df = dataMap.toDF(header.split(sep))
 ```
 
 RDD, DF from online json (more in drive)
+
 ```python
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -85,9 +86,16 @@ rdd = spark.sparkContext.parallelize([jsonData])
 df = spark.read.json(rdd)
 ```
 
-Missing:  
-RDD, DF from online csv - searched; probably does not exist  
-RDD, DF from local csv  
+DF from local CSV
+
+```python
+df = spark.read.format('csv').option('header', 'true').load(r'C:\Temp\test.csv')
+```
+
+
+**Missing:**  
+RDD from local csv  
+RDD, DF from online csv - searched; probably does not exist   
 
 Foundry:
 ```python
