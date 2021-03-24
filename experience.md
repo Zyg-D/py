@@ -206,11 +206,20 @@ DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
 DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
 ```
 
-Regex match
+Regex check if match exists
 
-    df = df.withColumn('new_c', F.when(F.col('d1').rlike('^.*\d1$'), 'match'))
+```python
+data = [('@@',), ('coo',),]
+df=spark.createDataFrame(data, ['col'])
+df = df.withColumn('col2', F.when(F.col('col').rlike('(\w+)'), 'match'))
+df.show()
+#    |col| col2|
+#    +---+-----+
+#    | @@| null|
+#    |coo|match|
+```
 
-Regex all matches (3.1)
+Regex return all matches (3.1)
 
 ```python
 data = [('one two',), ('I am',), ('coo',),]
@@ -228,18 +237,12 @@ Other
 
 ```py
 F.current_date()
-
 F.current_timestamp()
-
 F.year(F.current_date())
 
 def days(num):
   return F.expr(f'interval {num} days')
 F.col('last_positive_date') + days(37)
-
-df.groupby('patient_id').agg(
-F.max('test_performed').alias('test_performed'),
-F.max('lab_result_positive_bool').alias('if_ever_positive')
 
 df_group.where(F.col('test_type_id').isin({'1477', '1537', '1557'}))
 
