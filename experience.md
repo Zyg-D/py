@@ -210,21 +210,6 @@ DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
 DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
 ```
 
-Raw to clean
-
-```python
-from transforms.verbs import columns as V
-from ..utils import to_date, clean_int_to_string, hash_personal_id
-
-df = raw.toDF(*[c.lower() for c in raw.columns])
-
-# clean_null_int_to_string('gv_id'), # int -> str SENAS
-clean_int_to_string('kodas'), #int/float -> str
-
-V.trim_to_null('namo_n'), # str -> str
-hash_personal_id('ak').cast('string'),
-```
-
 regex all matches (3.1)
 
 ```python
