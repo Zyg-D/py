@@ -181,10 +181,6 @@ df03 = df02.withColumn('rn', F.row_number().over(
 ))
 ```
 
-Regex match
-
-    df = df.withColumn('new_c', F.when(F.col('d1').rlike('^.*\d1$'), 'match'))
-
 Coalesce
 
 ```python
@@ -210,7 +206,11 @@ DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
 DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
 ```
 
-regex all matches (3.1)
+Regex match
+
+    df = df.withColumn('new_c', F.when(F.col('d1').rlike('^.*\d1$'), 'match'))
+
+Regex all matches (3.1)
 
 ```python
 data = [('one two',), ('I am',), ('coo',),]
