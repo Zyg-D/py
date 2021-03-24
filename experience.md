@@ -225,6 +225,20 @@ V.trim_to_null('namo_n'), # str -> str
 hash_personal_id('ak').cast('string'),
 ```
 
+regex all matches (3.1)
+
+```python
+data = [('one two',), ('I am',), ('coo',),]
+df=spark.createDataFrame(data, ['col'])
+df = df.withColumn('col2', F.expr("regexp_extract_all(col, '(\\\\w+)', 1)"))
+df.show()
+#    |    col|      col2|
+#    +-------+----------+
+#    |one two|[one, two]|
+#    |   I am|   [I, am]|
+#    |    coo|     [coo]|
+```
+
 Other
 
 ```py
