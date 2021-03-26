@@ -92,7 +92,7 @@ RDD, DF from local CSV
 
 ```python
 df = spark.read.csv(r'C:\Temp\test.csv', header=True)
-rdd = df.rdd
+rdd = spark.read.csv(r'C:\Temp\test.csv', header=True).rdd
 ```
 
 Missing:  
