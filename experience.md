@@ -66,10 +66,10 @@ RDD, DF from local txt:
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 rdd = spark.sparkContext.textFile(r'C:\Temp\sample.txt')
-header = rdd.first()
-dataLines = rdd.filter(lambda line: line != header)
-dataMap = dataLines.map(lambda k: k.split(','))
-df = dataMap.toDF(header.split(','))
+header_str = rdd.first()
+rddDataLines = rdd.filter(lambda line: line != header_str)
+rddSplit = rddDataLines.map(lambda k: k.split(','))
+df = rddSplit.toDF(header_str.split(','))
 ```
 
 RDD, DF from online json (more in drive)
