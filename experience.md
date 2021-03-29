@@ -232,6 +232,12 @@ df.show()
 #    |    coo|     [coo]|
 ```
 
+Regex replace
+
+```python
+df = df.withColumn('new_col', F.regexp_replace('c1', '\d+', 'replaced_with'))
+```
+
 Other
 
 ```py
