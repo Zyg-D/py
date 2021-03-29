@@ -218,6 +218,12 @@ df.show()
 #    |coo|match|
 ```
 
+Regex return specific group or whole match from the 1st match
+
+```python
+df = df.withColumn('new_col', F.regexp_extract('c1', '\d+ ', 0))  # 0=full 1st match, 1...=groups
+```
+
 Regex return all matches (3.1)
 
 ```python
