@@ -323,7 +323,7 @@ Create a sample df (2):
 
 Put all Excel sheets into a dict { "sheetName" : df , ... }
 
-    dfs = pd.read_excel('C:\\Temp\\file.xlsx', sheet_name=None)
+    dfs = pd.read_excel(r'C:\Temp\file.xlsx', sheet_name=None)
 
 Referencing individual items - by indexes:  
 <sup>[row index, col index]</sup>
@@ -547,6 +547,8 @@ file = open(r'C:\Temp\test.txt', 'r', encoding='cp1257')
 print(file.read())
 # List of lines
 print(file.readlines())
+# 1st line
+print(file.readline())
 ```
 
 **Read specified lines in txt, csv**
