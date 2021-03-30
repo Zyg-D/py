@@ -90,8 +90,8 @@ df = spark.read.json(rdd)
 RDD, DF from local CSV
 
 ```python
-df = spark.read.csv(r'C:\Temp\test.csv', header=True)
-rdd = spark.read.csv(r'C:\Temp\test.csv', header=True).rdd
+df = spark.read.csv(r'C:\Temp\test.csv', header=True, sep=',')
+rdd = spark.read.csv(r'C:\Temp\test.csv', header=True, sep=',').rdd
 ```
 
 Missing:  
