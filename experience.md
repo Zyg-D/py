@@ -116,6 +116,13 @@ new_column_name_list = [map(lambda x: x.replace(' ', '_'), df.columns)]
 df = df.toDF(*new_column_name_list)
 ```
 
+Assert correct amount of separators in RDD linese:
+```python
+sep = ','
+countRDD = rdd.map(lambda line: len(line.split(sep)))
+print(sorted(countRDD.collect())[:3])
+```
+
 Get DF column datatype:
 
     dict(df.dtypes)['colName']
