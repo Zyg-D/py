@@ -543,18 +543,34 @@ win32gui.EnumWindows(myF, None)
 **Read txt, csv file contents**
 ```py
 file = open(r'C:\Temp\test.txt', 'r', encoding='cp1257')
+
 # String of full contents
 print(file.read())
-# List of lines
-print(file.readlines())
-# 1st line
-print(file.readline())
-```
 
-**Read specified lines in txt, csv**
-```python
-file = open(r'C:\Temp\test.txt', 'r', encoding='cp1257')
-lines = file.readlines()
-for i in list(range(2)):
-    print(lines[i])
+# List of all lines
+print(file.readlines())
+
+# 1st line, without loading the whole file:
+print(file.readline())
+
+# Only one specified line, without loading the whole file
+line = 19
+with open(full_name, encoding='utf8') as f:
+    [next(f) for x in range(line-1)]
+    print(next(f))
+
+# Only first n lines, without loading the whole file:
+n = 5
+with open(r'C:\Temp\test.txt', encoding='utf8') as f:
+    head = [next(f) for x in range(n)]
+print(*head, sep='')
+
+# Specified lines in the specified order, without loading the whole file:
+lines = [1,3,2]
+dict = {x+1:next(file) for x in range(max(lines)) if x+1 in lines}
+print(*[dict.get(i) for i in lines], sep='')
+
+# Specified lines ascending (not according to the original order), without loading the whole file:
+lines = [1,3,2]
+print(*[next(file) for x in range(max(lines)) if x+1 in lines], sep='')
 ```
