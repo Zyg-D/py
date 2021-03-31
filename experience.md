@@ -555,14 +555,12 @@ print(file.readline())
 
 # Only one specified line, without loading the whole file
 line = 19
-with open(full_name, encoding='utf8') as f:
-    [next(f) for x in range(line-1)]
-    print(next(f))
+[next(file) for x in range(line-1)]
+print(next(file))
 
 # Only first n lines, without loading the whole file:
 n = 5
-with open(r'C:\Temp\test.txt', encoding='utf8') as f:
-    head = [next(f) for x in range(n)]
+head = [next(file) for x in range(n)]
 print(*head, sep='')
 
 # Specified lines in the specified order, without loading the whole file:
