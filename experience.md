@@ -565,10 +565,13 @@ print(*head, sep='')
 
 # Specified lines in the specified order, without loading the whole file:
 lines = [1,3,2]
-dict = {x+1:next(file) for x in range(max(lines)) if x+1 in lines}
+dict = {}
+for x in range(max(lines)):
+    dict[x+1] = next(file) if x+1 in lines else next(file)
 print(*[dict.get(i) for i in lines], sep='')
 
 # Specified lines ascending (not according to the original order), without loading the whole file:
 lines = [1,3,2]
-print(*[next(file) for x in range(max(lines)) if x+1 in lines], sep='')
+for x in range(max(lines)):
+    print(next(file)) if x+1 in lines else next(file)
 ```
