@@ -15,7 +15,7 @@ def generate_transforms(names):
             inp=Input(f"/source_path/raw/{name}"),
         )
         def my_compute_function(ctx, inp):
-            cols_to_drop = [k for k, v in dict(inp.dtypes).items() if v in ['string', 'date']]
+            cols_to_drop = [k for k, v in dict(inp.dtypes).items() if v in ['string', 'date', 'timestamp']]
             df = inp.drop(*cols_to_drop)
             for c in df.columns:
                 df = df.withColumn(f'__{c}', F.abs(F.col(c)) % 1).drop(c)
