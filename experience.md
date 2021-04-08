@@ -75,7 +75,8 @@ Assert correct amount of separators in RDD lines (just after importing .txt or .
 ```python
 sep = ','
 countRDD = rdd.map(lambda line: len(line.split(sep)))
-print(sorted(countRDD.collect())[:3])
+sortedRDD = sorted(countRDD.collect())
+print(sortedRDD[:3], sortedRDD[-3:])
 ```
 
 RDD, DF from online json (more in drive)
