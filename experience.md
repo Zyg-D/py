@@ -77,6 +77,14 @@ sep = ','
 countRDD = rdd.map(lambda line: len(line.split(sep)))
 sortedRDD = sorted(countRDD.collect())
 print(sortedRDD[:3], sortedRDD[-3:])
+
+# Show lines of specified length
+sep = ','
+filter_key = 25
+lenRDD = rdd.map(lambda line: (len(line.split(sep)) , line))
+filtRDD = lenRDD.filter(lambda line: line[0] == filter_key)
+print(rdd.take(1))
+print(filtRDD.collect())
 ```
 
 RDD, DF from online json (more in drive)
