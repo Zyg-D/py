@@ -87,20 +87,52 @@ print(rdd.take(1))
 print(filtRDD.collect())
 ```
 
-RDD, DF from online json (more in drive)
+RDD, DF from example JSON
 
 ```python
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as F
+json = \
+{
+  "metadata": {"Symbol": "IBM"},
+  "data": {
+    "2021-04-14": {
+      "open": "131.305",
+      "close": "132.630"
+    },
+    "2021-04-13": {
+      "open": "133.000",
+      "close": "131.180"
+    }
+  }
+}
+rdd = spark.sparkContext.parallelize([json])
+df = spark.read.json(rdd)
+```
+
+
+RDD, DF from online JSON (more in drive)
+
+```python
 from urllib.request import urlopen
-
-spark = SparkSession.builder.getOrCreate()
-
-url = 'https://randomuser.me/api/0.8/?results=10'
+url = 'https://randomuser.me/api/0.8/?results=3'
 jsonData = urlopen(url).read().decode('utf-8')
 # NOTE SQUARE BRACKETS
 rdd = spark.sparkContext.parallelize([jsonData])
 df = spark.read.json(rdd)
+# df.printSchema()
+# root
+#  |-- nationality: string (nullable = true)
+#  |-- results: array (nullable = true)
+#  |    |-- element: ...
+# Navigating:
+# F.explode is used to get inside 'results' array
+# Dot notation is used to get inside structs 'user' and 'name'
+df = df.withColumn('expl',F.explode('results')).select('expl.user.name.*')
+df.show()
+#|  first|  last|title|
+#+-------+------+-----+
+#| monica| marin| miss|
+#|eduardo|lozano|   mr|
+#|lorenzo|ferrer|   mr|
 ```
 
 RDD, DF from local CSV
