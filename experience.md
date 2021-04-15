@@ -98,6 +98,7 @@ spark = SparkSession.builder.getOrCreate()
 
 url = 'https://randomuser.me/api/0.8/?results=10'
 jsonData = urlopen(url).read().decode('utf-8')
+# NOTE SQUARE BRACKETS
 rdd = spark.sparkContext.parallelize([jsonData])
 df = spark.read.json(rdd)
 ```
