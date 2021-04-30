@@ -204,6 +204,10 @@ df_filt = df.withColumn('rn', F.row_number().over(
 )).filter('rn = 1').drop('rn')
 ```
 
+Length of strings (string length)
+
+    F.length('col_name')
+
 Order by
 
 ```python
