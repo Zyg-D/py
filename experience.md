@@ -74,7 +74,7 @@ df = rddSplit.toDF(header_str.split(','))
 When encoding is needed:
 ```python
 rdd = spark.sparkContext.textFile(
-    r"C:\Users\ZygintasDo\Downloads\2017b.csv", 
+    r'C:\Temp\sample.csv', 
     use_unicode=False
 ).map(lambda x: x.decode('cp1257'))
 ```
