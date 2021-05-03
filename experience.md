@@ -71,6 +71,13 @@ rddDataLines = rdd.filter(lambda line: line != header_str)
 rddSplit = rddDataLines.map(lambda k: k.split(','))
 df = rddSplit.toDF(header_str.split(','))
 ```
+When encoding is needed:
+```python
+rdd = spark.sparkContext.textFile(
+    r"C:\Users\ZygintasDo\Downloads\2017b.csv", 
+    use_unicode=False
+).map(lambda x: x.decode('cp1257'))
+```
 Assert correct amount of separators in RDD lines (just after importing .txt or .csv):
 ```python
 sep = ','
@@ -81,7 +88,7 @@ print(sortedRDD[:3], sortedRDD[-3:])
 # Show lines of specified length
 sep = ','
 filter_key = 25
-lenRDD = rdd.map(lambda line: (len(line.split(sep)) , line))
+lenRDD = rdd.map(lambda line: (len(line.split(sep)), line))
 filtRDD = lenRDD.filter(lambda line: line[0] == filter_key)
 print(rdd.take(1))
 print(filtRDD.collect())
