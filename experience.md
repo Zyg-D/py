@@ -56,6 +56,10 @@ df = rdd.toDF()
 df = rdd.toDF(['dept_name', 'dept_id'])
 ```
 
+List of Rows to DF:
+
+    spark.createDataFrame(data)
+
 DF to RDD:
 
     rdd = df.rdd
