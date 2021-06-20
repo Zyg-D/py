@@ -22,6 +22,7 @@ df = spark.createDataFrame([(1, 11), (2, 22)], ['c1', 'c2'])
 df = spark.createDataFrame([(1,),(2,)], ['c'])
 df = spark.createDataFrame([1,2], 'int').toDF('c')
 df = spark.range(1, 4).toDF('c')
+df = spark.range(4)
 ```
 
 (Foundry)
