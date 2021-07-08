@@ -168,6 +168,34 @@ from pyspark.sql import Row
 df = spark.createDataFrame([Row(**i) for i in data])
 ```
 
+Foundry expectations
+
+```python
+from transforms.api import Check
+from transforms import expectations as E
+...
+    Output(
+        'rid',
+        checks=[
+            Check(E.__funkcija__, 'error_text', on_error='FAIL'),
+        ],
+    )
+```
+```python
+# Examples:
+cols_list = ['c1', 'c2']
+nine_digits = r'^\d{9}$'
+encrypted = r'^BELLASO::'
+*[Check(E.col(c).non_null(), 'Check ' + c + ' not null', on_error='WARN') for c in cols_list],
+Check(E.group_by('c1', 'c2').is_unique(), 'text', on_error='WARN'),
+Check(E.any(E.col('c1').rlike(nine_digits), E.col('c1').rlike(encrypted)), 'text'),  # turi passinti bent viena salyga
+Check(E.when(E.col('c1').rlike(encrypted), E.col('c2').rlike(encrypted)).otherwise(E.true()), 'text'),
+Check(E.col('c1').rlike('^(\d*(\.0+)?)|(0E-10)$'),
+      'Expectation, kad stulpelis C1 po kablelio turi tik nulius.',
+      on_error='WARN'
+)
+```
+
 Modify/ rename all columns in DF: 
 ```python
 df = df.toDF(*[f'v_{c}' for c in tp_v.columns])
