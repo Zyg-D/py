@@ -9,11 +9,10 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 
 # Several cols:
-cols = [ 'dept_name', 'dept_id']
+cols = ['dept_name', 'dept_id']
 data = [('Marketing', 10),
-        (  'Finance', 20),
-        (    'Sales', 30),
-        (       'IT', 40)]
+        ('Finance', 20),
+        ('Sales', 30)]
 df = spark.createDataFrame(data, cols)
 # OR
 df = spark.createDataFrame([(1, 11), (2, 22)], ['c1', 'c2'])
