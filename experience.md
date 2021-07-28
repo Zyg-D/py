@@ -17,12 +17,18 @@ data = [('Marketing', 10),
 df = spark.createDataFrame(data, cols)
 # OR
 df = spark.createDataFrame([(1, 11), (2, 22)], ['c1', 'c2'])
+# OR
+df = spark.createDataFrame([('1', 11), ('2', 22)], 'c1 string, c2 int')
 
 # One col
 df = spark.createDataFrame([(1,),(2,)], ['c'])
 df = spark.createDataFrame([1,2], 'int').toDF('c')
 df = spark.range(1, 4).toDF('c')
 df = spark.range(4)
+
+# Date type
+df = spark.createDataFrame([(1, '2020-05-05'), (2, None)], ['c1', 'c2']) \
+    .select(*[F.col(c).cast('date') if c in {'c2'} else c for c in df.columns])
 ```
 
 (Foundry)
