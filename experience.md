@@ -26,8 +26,8 @@ df = spark.range(1, 4).toDF('c')
 df = spark.range(4)
 
 # Date type
-df = spark.createDataFrame([(1, '2020-05-05'), (2, None)], ['c1', 'c2']) \
-    .select(*[F.col(c).cast('date') if c in {'c2'} else c for c in df.columns])
+df = spark.createDataFrame([(1, '2020-05-05'), (2, None)], ['c1', 'c2'])
+df = df.select(*[F.col(c).cast('date') if c in {'c2'} else c for c in df.columns])
 ```
 
 (Foundry)
