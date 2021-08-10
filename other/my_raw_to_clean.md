@@ -11,8 +11,8 @@ def generate_transforms(names):
     for name in names:
 
         @transform_df(
-            Output(f"/target_path/clean/{name.lower()}"),
-            inp=Input(f"/source_path/raw/{name}"),
+            Output(f'/target_path/clean/{name.lower()}'),
+            inp=Input(f'/source_path/raw/{name}'),
         )
         def my_compute_function(ctx, inp):
             cols_to_drop = [k for k, v in dict(inp.dtypes).items() if v in ['string', 'date', 'timestamp']]
