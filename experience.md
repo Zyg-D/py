@@ -337,6 +337,7 @@ df.show()
 
 Regex replace
 
+If match isn't foound, col value is returned
 ```python
 df = df.withColumn('new_col', F.regexp_replace('c1', '\d+ (\w+)', '$1'))
 ```
