@@ -372,19 +372,20 @@ Foundry - many transforms with one script
 
 ```python
 from transforms.api import transform_df, Input, Output
-from .osp_json_parser import parse_json # Custom function in another file
+
 
 def generate_transforms(names):
     transforms = []
     for name in names:
         @transform_df(
             Output(f"/path/clean/{name}"),
-            raw_json=Input(f"/path/raw/{name}"),
+            inp=Input(f"/path/raw/{name}"),
         )
-        def my_compute_function(ctx, raw_json):
-            return parse_json(raw_json, ctx.spark_session)
-        transforms.append(my_compute_function)
+        def compute(inp):
+            return inp
+        transforms.append(compute)
     return transforms
+
 
 TRANSFORMS = generate_transforms([
     'file_name1',
