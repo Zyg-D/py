@@ -8,7 +8,14 @@ My own example file:
 --------------------------------------------------------------------------
 **Check Python version**
 
+*in command line:*
+
     python --version
+
+*in code:*
+
+    import sys
+    print (sys.version)
 
 **Check python package version**
 
