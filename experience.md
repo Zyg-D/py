@@ -259,6 +259,9 @@ Order by
 df.orderBy(F.col('e_snf.snf_san_data').desc_nulls_last())
                                       .asc_nulls_first()
 ```
+`.orderBy` = `.sort`  
+`F.asc('col')` =` F.col('col').asc()` = `F.col('col').asc_nulls_first()`  
+`F.desc('col')` = `F.col('col').desc()` = `F.col('col').desc_nulls_last()`
 
 Group + aggregate
 
@@ -343,9 +346,6 @@ df = df.withColumn('new_col', F.regexp_replace('c1', '\d+ (\w+)', '$1'))
 ```
 
 Other
-
-`F.asc('col')` =` F.col('col').asc()` = `F.col('col').asc_nulls_first()`
-`F.desc('col')` = `F.col('col').desc()` = `F.col('col').desc_nulls_last()`
 
 ```py
 df.withColumn('gmp_indication', F.when(F.col('gmp_promo_code').isNull(), F.lit('profilaktika'))
