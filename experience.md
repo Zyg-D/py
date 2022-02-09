@@ -240,7 +240,7 @@ df.head()  # Row
 df.first()  # Row
 ```
 
-First few rows
+First few rows:
 ```python
 df.head(1)  # list of Rows
 df.take(1)  # list of Rows
