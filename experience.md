@@ -234,12 +234,31 @@ Filter DF rows:
          (F.col('col2') != F.col('col4')) & (F.col('col1') == F.col('col3')) ) )
 ```
 
-Keeping only top 5 rows:
+First row:
+```python
+df.head()  # Row
+df.first()  # Row
+```
+
+First few rows
+```python
+df.head(1)  # list of Rows
+df.take(1)  # list of Rows
+df.limit(1).collect()  # list of Rows
+```
+
+Keeping only top few rows in df:
 ```python
 df.limit(5)
 ```
 
-Keep only top rows:
+Referencing the value of a column:
+```python
+v = df.head().c1
+v = df.head()['c1']
+```
+
+Keep only top rows for specified partitions:
 ```python
 df_filt = df.withColumn('rn', F.row_number().over(
     W.partitionBy(F.col('asm_id'))
