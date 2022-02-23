@@ -264,7 +264,7 @@ v = df.head()['c1']
 Keep only top rows for specified partitions:
 ```python
 df_filt = df.withColumn('rn', F.row_number().over(
-    W.partitionBy(F.col('asm_id'))
+    W.partitionBy('asm_id')
     .orderBy(
         F.col('data').desc_nulls_last(),
     )
@@ -298,7 +298,7 @@ Window
 ```python
 from pyspark.sql import Window as W
 df03 = df02.withColumn('rn', F.row_number().over(
-    W.partitionBy(F.col('e_snf.bucket')).orderBy(F.col('e_snf.date').desc_nulls_last())
+    W.partitionBy('e_snf.bucket').orderBy(F.col('e_snf.date').desc_nulls_last())
 ))
 ```
 
