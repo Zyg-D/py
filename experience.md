@@ -297,9 +297,9 @@ Window
 
 ```python
 from pyspark.sql import Window as W
-df03 = df02.withColumn('rn', F.row_number().over(
-    W.partitionBy('e_snf.bucket').orderBy(F.col('e_snf.date').desc_nulls_last())
-))
+w = W.partitionBy('id').orderBy(F.asc_nulls_last('id2')) \
+     .rowsBetween(W.unboundedPreceding, W.unboundedFollowing)
+df = df.withColumn('last_su_betw', F.last('id2').over(w))
 ```
 
 Coalesce
