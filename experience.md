@@ -1,27 +1,26 @@
 -------------------------------------------------------------------------------
 **DF spark**
+```python
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+```
 
 Create example DF:
+
 ```python
-
-from pyspark.sql import SparkSession
-
-spark = SparkSession.builder.getOrCreate()
-
 # Several cols:
-cols = ['dept_name', 'dept_id']
-data = [('Marketing', 10),
-        ('Finance', 20),
-        ('Sales', 30)]
-df = spark.createDataFrame(data, cols)
+df = spark.createDataFrame(
+    [(1, 11),
+     (2, 22)],
+    ['c1', 'c2'])
 # OR
 df = spark.createDataFrame([(1, 11), (2, 22)], ['c1', 'c2'])
 # OR
 df = spark.createDataFrame([('1', 11), ('2', 22)], 'c1 string, c2 int')
 
 # One col
-df = spark.createDataFrame([(1,),(2,)], ['c'])
-df = spark.createDataFrame([1,2], 'int').toDF('c')
+df = spark.createDataFrame([(1, ), (2, )], ['c'])
+df = spark.createDataFrame([1, 2], 'int').toDF('c')
 df = spark.range(1, 4).toDF('c')
 df = spark.range(4)
 
@@ -33,21 +32,20 @@ df = spark.createDataFrame([(1, '2020-05-05'), (2, None)], ['c1', 'c2'])
 df = df.select(*[F.col(c).cast('date') if c in {'c2'} else c for c in df.columns])
 ```
 
-(Foundry)
+Create empty DF:
+
 ```python
-def my_compute_function(ctx, ...):
-    ...
-    answer = 2
-    df = ctx.spark_session.createDataFrame([(answer,)], ['c1'])
+# Take schema from other df
+df2 = spark.createDataFrame([], df.schema)
+df2 = df.limit(0)
+
+# Provide schema
+df = spark.createDataFrame([], 'c1 string, c2 long')
 ```
 
 Create example RDD:
 
 ```python
-from pyspark.sql import SparkSession
-
-spark = SparkSession.builder.getOrCreate()
-
 sc = spark.sparkContext
 dept = [('Marketing', 10),
         (  'Finance', 20),
@@ -76,8 +74,6 @@ DF to RDD:
 RDD, DF from local txt:
 
 ```python
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.getOrCreate()
 rdd = spark.sparkContext.textFile(r'C:\Temp\sample.txt')
 header_str = rdd.first()
 rddDataLines = rdd.filter(lambda line: line != header_str)
@@ -214,7 +210,7 @@ df = df.toDF(*new_column_name_list)
 
 Get DF column datatype:
 
-    dict(df.dtypes)['colName']
+    dict(df.dtypes)['col_name']
 
 Get DF col name:
 
@@ -223,6 +219,9 @@ Get DF col name:
 F.col('c1')._jc.toString()
 F.col('c1').__repr__()
 F.col('c1').__str__()
+str(col).replace("`", "").split("'")[-2].split(" AS ")[-1])
+import re
+re.search(r"'.*?`?(\w+)`?'", str(col)).group(1)
 ```
 
 Filter DF rows:
