@@ -406,18 +406,20 @@ Create an empty df:
 
     df = pd.DataFrame()
 
-Create a sample df (1): 
+Create a sample df: 
 
-    df = pd.DataFrame.from_records(
-			    [{'col_1': 'a', 'col_2': 1},
-			     {'col_1': 'b', 'col_2': 2} ] )
-
-Create a sample df (2): 
-
-    df = pd.DataFrame({'num_legs': [2, 4, 8, 0],
-                       'num_wings': [2, 0, 0, 0],
-                       'num_specimen_seen': [10, 2, 1, 8] },
-                      index=['falcon', 'dog', 'spider', 'fish'] )
+```python
+df = pd.DataFrame.from_records(
+			[{'col_1': 'a', 'col_2': 1},
+			 {'col_1': 'b', 'col_2': 2}])
+df = pd.DataFrame({'c1': [2, 4, 8, 0],
+                   'c2': [2, 0, 0, 0],
+                   'c3': [10, 2, 1, 8]})
+df = pd.DataFrame({'c1_num_legs': [2, 4, 8, 0],
+                   'c2_num_wings': [2, 0, 0, 0],
+                   'c3_num_specimen_seen': [10, 2, 1, 8] },
+                  index=['falcon', 'dog', 'spider', 'fish'])
+```
 
 Put all Excel sheets into a dict { "sheetName" : df , ... }
 
