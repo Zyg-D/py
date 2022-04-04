@@ -431,6 +431,7 @@ df = pd.DataFrame({'c1_num_legs': [2, 4, 8, 0],
                    'c2_num_wings': [2, 0, 0, 0],
                    'c3_num_specimen_seen': [10, 2, 1, 8] },
                   index=['falcon', 'dog', 'spider', 'fish'])
+pandasDF = pysparkDF.toPandas()
 ```
 
 Put all Excel sheets into a dict { "sheetName" : df , ... }
