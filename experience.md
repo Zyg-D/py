@@ -301,22 +301,34 @@ w = W.partitionBy('id').orderBy(F.asc_nulls_last('id2')) \
 df = df.withColumn('last_su_betw', F.last('id2').over(w))
 ```
 
-Coalesce
+Median, quartiles
 
 ```python
-df = df.selectExpr('coalesce(m.ari_asm_id, e_snf.snf_ji_asm_nr) as m_id')
-df = df.select(F.coalesce('m.ari_asm_id', 'e_snf.snf_ji_asm_nr').alias('m_id'))
-df = df.select(F.coalesce(F.col('m.ari_asm_id'), F.col('e_snf.snf_ji_asm_nr')).alias('m_id'))
+df = (
+    spark.range(1, 6)
+    # accurate percentiles for given values
+    .withColumn('percent_rank', F.percent_rank().over(W.orderBy('id')))
+    # ACCURATE values for given percentiles
+    .withColumn('lower_quartile_acc', F.expr('percentile(id, .25) over()'))
+    .withColumn('median_acc', F.expr('percentile(id, .5) over()'))
+    .withColumn('quartiles_acc', F.expr('percentile(id, array(.25, .5, .75)) over()'))
+    # APPROX values for given percentiles
+    .withColumn('median_approx', F.percentile_approx('id', .5).over(W.partitionBy(F.lit(1))))
+    .withColumn('median_approx2', F.expr('percentile_approx(id, .5) over()'))
+    .withColumn('quartiles_approx', F.percentile_approx('id', [.25, .5, .75]).over(W.partitionBy(F.lit(1))))
+    .withColumn('quartiles_approx2', F.expr('percentile_approx(id, array(.25, .5, .75)) over()'))
+)
+df.show()
+#+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
+#| id|percent_rank|lower_quartile_acc|median_acc|  quartiles_acc|median_approx|median_approx2|quartiles_approx|quartiles_approx2|
+#+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
+#|  1|         0.0|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
+#|  2|        0.25|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
+#|  3|         0.5|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
+#|  4|        0.75|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
+#|  5|         1.0|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
+#+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
 ```
-
-Select specified cols from DF
-
-    DF2 = DF1.select(['col1','col2'])
-
-Show DF
-
-    DF.show()
-    DF.show(truncate=False)
 
 Join DFs (more in drive)
 
