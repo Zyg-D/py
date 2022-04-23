@@ -301,6 +301,27 @@ w = W.partitionBy('id').orderBy(F.asc_nulls_last('id2')) \
 df = df.withColumn('last_su_betw', F.last('id2').over(w))
 ```
 
+Unpivot
+
+```python
+df = spark.createDataFrame(
+    [(101, 3, 520, 2001),
+     (102, 29, 530, 2020)],
+    ['ID', 'Col1', 'Col2', 'Col40'])
+# Option1
+df2 = df.select(
+    "ID",
+    F.expr("stack(3, Col1, 'Col1', Col2, 'Col2', Col40, 'Col40') as (ColVal, ColDescr)")
+)
+# Option2
+cols_to_unpivot = [f"{c}, \'{c}\'" for c in df.columns if c != 'ID']
+stack_string = ", ".join(cols_to_unpivot)
+df2 = df.select(
+    "ID",
+    F.expr(f"stack({len(cols_to_unpivot)}, {stack_string}) as (ColVal, ColDescr)")
+)
+```
+
 Median, quartiles
 
 ```python
