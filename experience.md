@@ -351,6 +351,51 @@ df.show()
 #+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
 ```
 
+Change deeply nested structure
+
+```python
+schema = (
+    T.StructType([
+        T.StructField('x', T.ArrayType(T.StructType([
+            T.StructField('y', T.LongType()),
+            T.StructField('z', T.ArrayType(T.StructType([
+                T.StructField('log', T.StringType())
+            ]))),
+        ])))
+    ])
+)
+df = spark.createDataFrame([
+    [
+        [[
+            9,
+            [[
+                'text'
+            ]]
+        ]]
+    ]
+], schema)
+df.printSchema()
+#  root
+#   |-- x: array (nullable = true)
+#   |    |-- element: struct (containsNull = true)
+#   |    |    |-- y: long (nullable = true)
+#   |    |    |-- z: array (nullable = true)
+#   |    |    |    |-- element: struct (containsNull = true)
+#   |    |    |    |    |-- log: string (nullable = true)
+
+df = df.withColumn('x', F.expr('transform(x, e -> struct(e.y as y, array(struct(struct(e.z.log[0] as b, e.z.log[0] as c) as log)) as z))'))
+df.printSchema()
+#  root
+#   |-- x: array (nullable = true)
+#   |    |-- element: struct (containsNull = false)
+#   |    |    |-- y: long (nullable = true)
+#   |    |    |-- z: array (nullable = false)
+#   |    |    |    |-- element: struct (containsNull = false)
+#   |    |    |    |    |-- log: struct (nullable = false)
+#   |    |    |    |    |    |-- b: string (nullable = true)
+#   |    |    |    |    |    |-- c: string (nullable = true)
+```
+
 Join DFs (more in drive)
 
 ```py
