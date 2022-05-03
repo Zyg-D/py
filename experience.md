@@ -314,7 +314,7 @@ df2 = df.select(
     F.expr("stack(3, Col1, 'Col1', Col2, 'Col2', Col40, 'Col40') as (ColVal, ColDescr)")
 )
 # Option2
-cols_to_unpivot = [f"{c}, \'{c}\'" for c in df.columns if c != 'ID']
+cols_to_unpivot = [f"`{c}`, \'{c}\'" for c in df.columns if c != 'ID']
 stack_string = ", ".join(cols_to_unpivot)
 df2 = df.select(
     "ID",
