@@ -609,7 +609,7 @@ Number of items:
 
     len(lt)
 
-Finding the index given item name:
+Finding the (first) index given item name:
 
     ["foo", "bar", "baz"].index("bar")
 
