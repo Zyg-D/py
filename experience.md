@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 **DF spark**
 ```python
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, functions as F, Window as W
 spark = SparkSession.builder.getOrCreate()
 ```
 
