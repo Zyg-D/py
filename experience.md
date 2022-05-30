@@ -477,6 +477,32 @@ TRANSFORMS = generate_transforms([
 ])
 ```
 
+
+-------------------------------------------------------------------------------
+**Spark ML**
+
+Create vector type cols:
+
+```python
+from pyspark.ml.linalg import Vectors
+df = spark.createDataFrame(
+    [(Vectors.dense(0.9, 0.5, 0.2), Vectors.dense(0.1, 0.3, 0.2)),
+     (Vectors.dense(0.8, 0.7, 0.1), Vectors.dense(0.8, 0.4, 0.2)),
+     (Vectors.dense(0.9, 0.2, 0.8), Vectors.dense(0.3, 0.1, 0.8))],
+    ['vector1', 'vector2']
+)
+```
+
+Convert vector to array:
+
+```python
+from pyspark.ml.functions import vector_to_array
+df = df.select(
+    vector_to_array('vector1').alias('vector1'),
+    vector_to_array('vector2').alias('vector2'),
+)
+```
+
 -------------------------------------------------------------------------------
 **df (pandas)**
 
