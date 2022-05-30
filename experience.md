@@ -1,9 +1,21 @@
--------------------------------------------------------------------------------
-**DF spark**
 ```python
 from pyspark.sql import SparkSession, functions as F, Window as W
 spark = SparkSession.builder.getOrCreate()
 ```
+
+**conf**
+
+```python
+spark.conf.set("spark.sql.legacy.timeParserPolicy", "CORRECTED")
+
+spark.conf.setAll([
+    ("spark.sql.autoBroadcastJoinThreshold", "-1"),
+    ("spark.driver.maxResultSize", "0"),
+])
+```
+
+-------------------------------------------------------------------------------
+**DF spark**
 
 Create example DF:
 
