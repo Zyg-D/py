@@ -408,6 +408,27 @@ df.printSchema()
 #   |    |    |    |    |    |-- c: string (nullable = true)
 ```
 
+Recursive function to standardize struct field names in the provided struct:
+
+```python
+def standardize_fields(struct):
+    ''' Standardizes struct field names. '''
+    if struct == None:
+        return T.StructType()
+    updated = []
+    for f in struct.fields:
+        new_name = f.name.replace(" ", "_").replace(":", "_").replace("-", "_")
+        if isinstance(f.dataType, T.StructType):
+            updated.append(T.StructField(new_name, standardize_fields(f.dataType)))
+        elif isinstance(f.dataType, T.ArrayType):
+            updated.append(T.StructField(new_name, T.ArrayType(
+                (standardize_fields(f.dataType.elementType)))))
+        else:
+            # Else handle all the other types except for struct and array
+            updated.append(T.StructField(new_name, f.dataType, f.nullable))   
+    return T.StructType(updated)
+```
+
 Join DFs (more in drive)
 
 ```py
