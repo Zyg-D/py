@@ -461,7 +461,7 @@ Regex return all matches (3.1)
 ```python
 data = [('one two',), ('I am',), ('coo',),]
 df=spark.createDataFrame(data, ['col'])
-df = df.withColumn('col2', F.expr("regexp_extract_all(col, '(\\\\w+)', 1)"))
+df = df.withColumn('col2', F.expr(r"regexp_extract_all(col, '(\\w+)', 1)"))
 df.show()
 #    |    col|      col2|
 #    +-------+----------+
