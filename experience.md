@@ -66,6 +66,18 @@ rdd = sc.parallelize(dept)
 # print(rdd.collect())
 ```
 
+RDD from Rows:
+
+```python
+rdd = spark.sparkContext.parallelize([
+    Row('Key-001', 'B4', 42, 'K5', 19, 'C20', 20), 
+    Row('Key-002', 'X16', 42),
+    Row('Key-003', 'O14', 41, 'P13', 8),
+])
+# print(rdd.collect())
+```
+
+
 RDD to DF:
 
 ```python
