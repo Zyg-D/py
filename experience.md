@@ -548,6 +548,15 @@ df = df.select(
 )
 ```
 
+Convert array to vector (array must contain doubles):
+
+```python
+from pyspark.ml.functions import array_to_vector
+df = spark.createDataFrame([([-0.02, 0.1, 0.0],)], ['col_arr_dbl'])
+df = df.withColumn('vect1', array_to_vector('col_arr_dbl'))
+```
+
+
 -------------------------------------------------------------------------------
 **df (pandas)**
 
