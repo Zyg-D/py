@@ -449,7 +449,7 @@ DF_joined = DF1.join(DF2, DF1.id == DF2.id, "inner")
 DF_joined = empDF.join(deptDF,[(empDF.emp_id < deptDF.dept_id/10)|(empDF.salary==deptDF.dept_id/-10)],"inner")
 ```
 
-_Spark's regex = PCRE (not PCRE2)_
+_Spark's regex = PCRE (not PCRE2) ([docs](https://www.pcre.org/original/doc/html/pcrepattern.html))_
 
 Regex check if match exists
 
