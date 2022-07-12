@@ -491,12 +491,6 @@ If match isn't found, col value is returned
 df = df.withColumn('new_col', F.regexp_replace('c1', '\d+ (\w+)', '$1'))
 ```
 
-Other
-
-```py
-df.withColumn('gmp_indication', F.when(F.col('gmp_promo_code').isNull(), F.lit('profilaktika'))
-			     .when(F.col('gmp_promo_code').contains('SIMPT'), F.lit('simptomai')) )
-```
 
 Foundry - many transforms with one script
 
@@ -523,6 +517,37 @@ TRANSFORMS = generate_transforms([
     'file_name3',
 ])
 ```
+
+**Datetime**
+
+Configuration in Spark 3 to use Spark 2 datetime patterns:
+```python
+spark.conf.set("spark.sql.legacy.timeParserPolicy", "LEGACY")
+```
+
+Specified format to date:
+```python
+import pandas as pd
+@F.pandas_udf('date')
+def _to_date(year_week: pd.Series) -> pd.Series:
+    return pd.to_datetime(year_week + '-1', format='%G-%V-%u')
+
+spark.createDataFrame([('2020-01',)]).withColumn('c2', _to_date('_1')).collect()
+# [Row(_1='2020-01', c2=datetime.date(2019, 12, 30))]
+```
+
+Date to specified format
+```python
+import pandas as pd
+@F.pandas_udf('string')
+def _to_str(date: pd.Series) -> pd.Series:
+    date = pd.to_datetime(date)
+    return date.dt.strftime('%m/%d/%Y')
+
+spark.createDataFrame([('2020-01-01',)]).withColumn('c2', _to_str('_1')).collect()
+# [Row(_1='2020-01-01', c2='01/01/2020')]
+```
+
 
 
 -------------------------------------------------------------------------------
