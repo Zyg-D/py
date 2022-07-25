@@ -3,6 +3,8 @@ from pyspark.sql import SparkSession, functions as F, Window as W
 spark = SparkSession.builder.getOrCreate()
 ```
 
+# PySpark
+
 **conf**
 
 ```python
@@ -15,7 +17,7 @@ spark.conf.setAll([
 ```
 
 -------------------------------------------------------------------------------
-**DF spark**
+**Create DF/RDD**
 
 Create example DF:
 
@@ -69,6 +71,7 @@ rdd = sc.parallelize(dept)
 RDD from Rows:
 
 ```python
+from pyspark.sql import Row
 rdd = spark.sparkContext.parallelize([
     Row('Key-001', 'B4', 42, 'K5', 19, 'C20', 20), 
     Row('Key-002', 'X16', 42),
@@ -148,7 +151,6 @@ rdd = spark.sparkContext.parallelize([json])
 df = spark.read.json(rdd)
 ```
 
-
 RDD, DF from online JSON (more in drive)
 
 ```python
@@ -195,6 +197,23 @@ df = spark.createDataFrame(data)
 from pyspark.sql import Row
 df = spark.createDataFrame([Row(**i) for i in data])
 ```
+
+
+----------------------------------------------------------------------------------
+**Type conversions**
+
+binary to long/int (dec)
+
+    F.conv(F.hex("c1"), 16, 10)
+
+struct to string (json/map/dict)
+
+    F.to_json('c1')
+
+
+
+----------------------------------------------------------------------------------
+**Other**
 
 Foundry expectations
 
@@ -584,8 +603,13 @@ df = df.withColumn('vect1', array_to_vector('col_arr_dbl'))
 ```
 
 
+
+
+
 -------------------------------------------------------------------------------
-**df (pandas)**
+# Python
+
+**Pandas**
 
 Create an empty df:
 
@@ -808,7 +832,7 @@ Option 1
 ```py
 import win32com.client as comclt
 wsh= comclt.Dispatch("WScript.Shell")
-wsh.AppActivate("FRANKONAS")
+wsh.AppActivate("the_name_of_window")
 wsh.SendKeys("{ENTER}")
 ```
 <sup>It doesn't need any extra package to be installed! And most importantly, it can be compiled to EXE with 'py2exe' w/o problem, whereas 'pynput' and 'pyautogui' produce problems. </sup>
