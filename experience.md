@@ -206,6 +206,32 @@ binary to long/int (dec)
 
     F.conv(F.hex("c1"), 16, 10)
 
+map to struct (keys as col names)
+
+```python
+from pyspark.sql import functions as F
+df = spark.createDataFrame(
+    [("x", {"a":1},),
+     ("y", {"a":2, "b":3},)],
+    ["c1", "c2"])
+
+df = df.withColumn("c3", F.to_json("c2"))
+json_schema = spark.read.json(df.rdd.map(lambda row: row.c3)).schema
+df = df.withColumn("c3", F.from_json("c3", json_schema))
+
+df.show()
+# +---+----------------+---------+
+# | c1|              c2|       c3|
+# +---+----------------+---------+
+# |  x|        {a -> 1}|{1, null}|
+# |  y|{a -> 2, b -> 3}|   {2, 3}|
+# +---+----------------+---------+
+print(df.dtypes)
+# [('c1', 'string'), ('c2', 'map<string,bigint>'), ('c3', 'struct<a:bigint,b:bigint>')]
+```
+
+
+
 struct to string (json/map/dict)
 
     F.to_json('c1')
