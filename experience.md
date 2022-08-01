@@ -202,6 +202,12 @@ df = spark.createDataFrame([Row(**i) for i in data])
 ----------------------------------------------------------------------------------
 **Conversions**
 
+
+array of struct to map
+
+    F.map_from_entries("c1")
+
+
 binary to long/int (dec)
 
     F.conv(F.hex("c1"), 16, 10)
