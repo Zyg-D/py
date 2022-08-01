@@ -213,6 +213,26 @@ binary to long/int (dec)
     F.conv(F.hex("c1"), 16, 10)
 
 
+columns to map
+
+```python
+df = spark.createDataFrame(
+    [(1, 'a', 10), (1, 'b', 20), (2, 'c', 30)],
+    ['id', 'col_k', 'col_v'])
+
+df = df.groupBy('id').agg(
+    F.map_from_entries(F.collect_set(F.struct('col_k', 'col_v'))).alias('map')
+)
+df.show()
+# +---+------------------+
+# | id|               map|
+# +---+------------------+
+# |  1|{b -> 20, a -> 10}|
+# |  2|         {c -> 30}|
+# +---+------------------+
+```
+
+
 map to columns (keys as col names)
 
 (reading the whole column in order to infer the new schema from all the keys (map just had 2 fields: key+value))
