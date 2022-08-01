@@ -233,7 +233,7 @@ df.show()
 ```
 
 
-map to array of struct (fields: key and value)
+map to array of struct (fields: key, value)
 
     map_entries("c1")
 
