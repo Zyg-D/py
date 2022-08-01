@@ -239,38 +239,46 @@ map to array of struct (fields: key, value)
 
 map to columns (keys as col names)
 
-(reading the whole column in order to infer the new schema from all the keys (map just had 2 fields: key+value))
 
-- _PySpark_
-	```python
-	df = spark.createDataFrame(
-	    [("x", {"a":1},),
-	     ("y", {"a":2, "b":3},)],
-	    ["c1", "c2"])
+- if col names are not known - reading the whole column in order to infer the new schema from all the keys (map only had 2 fields: key+value)
 
-	df = df.withColumn("c3", F.to_json("c2"))
-	json_schema = spark.read.json(df.rdd.map(lambda row: row.c3)).schema
-	df = df.withColumn("c3", F.from_json("c3", json_schema))
-	df = df.select("*", "c3.*").drop("c3")
+	- _PySpark_
+		```python
+		df = spark.createDataFrame(
+		    [("x", {"a":1},),
+		     ("y", {"a":2, "b":3},)],
+		    ["c1", "c2"])
 
-	df.show()
-	# +---+----------------+---+----+
-	# | c1|              c2|  a|   b|
-	# +---+----------------+---+----+
-	# |  x|        {a -> 1}|  1|null|
-	# |  y|{a -> 2, b -> 3}|  2|   3|
-	# +---+----------------+---+----+
-	print(df.dtypes)
-	# [('c1', 'string'), ('c2', 'map<string,bigint>'), ('a', 'bigint'), ('b', 'bigint')]
-	```
+		df = df.withColumn("c3", F.to_json("c2"))
+		json_schema = spark.read.json(df.rdd.map(lambda row: row.c3)).schema
+		df = df.withColumn("c3", F.from_json("c3", json_schema))
+		df = df.select("*", "c3.*").drop("c3")
 
-- _Scala_
-	```scala
-	val json_col = to_json($"c2")
-	val json_schema = spark.read.json(df.select(json_col).as[String]).schema
-	val df2 = df.withColumn("c3", from_json(json_col, json_schema))
-	val df3 = df2.select("*", "c3.*").drop("c3")
-	```
+		df.show()
+		# +---+----------------+---+----+
+		# | c1|              c2|  a|   b|
+		# +---+----------------+---+----+
+		# |  x|        {a -> 1}|  1|null|
+		# |  y|{a -> 2, b -> 3}|  2|   3|
+		# +---+----------------+---+----+
+		print(df.dtypes)
+		# [('c1', 'string'), ('c2', 'map<string,bigint>'), ('a', 'bigint'), ('b', 'bigint')]
+		```
+
+	- _Scala_
+		```scala
+		val json_col = to_json($"c2")
+		val json_schema = spark.read.json(df.select(json_col).as[String]).schema
+		val df2 = df.withColumn("c3", from_json(json_col, json_schema))
+		val df3 = df2.select("*", "c3.*").drop("c3")
+		```
+
+- if col names are known:
+
+    ```python
+    cols = ["c1", "c2", "c3"]
+    df = df.select([F.col("c0")[c].alias(c) for c in cols])
+    ```
 
 map to string (of json/map/dict form)
 
@@ -279,36 +287,43 @@ map to string (of json/map/dict form)
 
 map to struct (keys as col names)
 
-(reading the whole column in order to infer the new schema from all the keys (map just had 2 fields: key+value))
+- if field names are not known - reading the whole column in order to infer the new schema from all the keys (map just had 2 fields: key+value)
 
-- _PySpark_
-	```python
-	df = spark.createDataFrame(
-	    [("x", {"a":1},),
-	     ("y", {"a":2, "b":3},)],
-	    ["c1", "c2"])
+	- _PySpark_
+		```python
+		df = spark.createDataFrame(
+		    [("x", {"a":1},),
+		     ("y", {"a":2, "b":3},)],
+		    ["c1", "c2"])
 
-	df = df.withColumn("c3", F.to_json("c2"))
-	json_schema = spark.read.json(df.rdd.map(lambda row: row.c3)).schema
-	df = df.withColumn("c3", F.from_json("c3", json_schema))
+		df = df.withColumn("c3", F.to_json("c2"))
+		json_schema = spark.read.json(df.rdd.map(lambda row: row.c3)).schema
+		df = df.withColumn("c3", F.from_json("c3", json_schema))
 
-	df.show()
-	# +---+----------------+---------+
-	# | c1|              c2|       c3|
-	# +---+----------------+---------+
-	# |  x|        {a -> 1}|{1, null}|
-	# |  y|{a -> 2, b -> 3}|   {2, 3}|
-	# +---+----------------+---------+
-	print(df.dtypes)
-	# [('c1', 'string'), ('c2', 'map<string,bigint>'), ('c3', 'struct<a:bigint,b:bigint>')]
-	```
+		df.show()
+		# +---+----------------+---------+
+		# | c1|              c2|       c3|
+		# +---+----------------+---------+
+		# |  x|        {a -> 1}|{1, null}|
+		# |  y|{a -> 2, b -> 3}|   {2, 3}|
+		# +---+----------------+---------+
+		print(df.dtypes)
+		# [('c1', 'string'), ('c2', 'map<string,bigint>'), ('c3', 'struct<a:bigint,b:bigint>')]
+		```
 
-- _Scala_
-	```scala
-	val json_col = to_json($"c2")
-	val json_schema = spark.read.json(df.select(json_col).as[String]).schema
-	val df2 = df.withColumn("c3", from_json(json_col, json_schema))
-	```
+	- _Scala_
+		```scala
+		val json_col = to_json($"c2")
+		val json_schema = spark.read.json(df.select(json_col).as[String]).schema
+		val df2 = df.withColumn("c3", from_json(json_col, json_schema))
+		```
+
+- if field names are known
+
+    ```python
+    cols = ["c1", "c2", "c3"]
+    df = df.withColumn("c0", F.struct([F.col("c0")[c].alias(c) for c in cols]))
+    ```
 
 
 struct to string (of json/map/dict form)
