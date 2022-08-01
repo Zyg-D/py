@@ -233,6 +233,10 @@ df.show()
 ```
 
 
+map to array of struct (fields: key and value)
+
+    map_entries("c1")
+
 map to columns (keys as col names)
 
 (reading the whole column in order to infer the new schema from all the keys (map just had 2 fields: key+value))
