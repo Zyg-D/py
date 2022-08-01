@@ -249,10 +249,10 @@ map to columns (keys as col names)
 		     ("y", {"a":2, "b":3},)],
 		    ["c1", "c2"])
 
-		df = df.withColumn("c3", F.to_json("c2"))
-		json_schema = spark.read.json(df.rdd.map(lambda row: row.c3)).schema
-		df = df.withColumn("c3", F.from_json("c3", json_schema))
-		df = df.select("*", "c3.*").drop("c3")
+		df = df.withColumn("_c", F.to_json("c2"))
+		json_schema = spark.read.json(df.rdd.map(lambda r: r._c)).schema
+		df = df.withColumn("_c", F.from_json("_c", json_schema))
+		df = df.select("*", "_c.*").drop("_c")
 
 		df.show()
 		# +---+----------------+---+----+
@@ -269,15 +269,15 @@ map to columns (keys as col names)
 		```scala
 		val json_col = to_json($"c2")
 		val json_schema = spark.read.json(df.select(json_col).as[String]).schema
-		val df2 = df.withColumn("c3", from_json(json_col, json_schema))
-		val df3 = df2.select("*", "c3.*").drop("c3")
+		val df2 = df.withColumn("_c", from_json(json_col, json_schema))
+		val df3 = df2.select("*", "_c.*").drop("_c")
 		```
 
 - if col names are known:
 
     ```python
-    cols = ["c1", "c2", "c3"]
-    df = df.select([F.col("c0")[c].alias(c) for c in cols])
+    cols = ["a", "b"]
+    df = df.select([F.col("c2")[c].alias(c) for c in cols])
     ```
 
 map to string (of json/map/dict form)
@@ -297,7 +297,7 @@ map to struct (keys as col names)
 		    ["c1", "c2"])
 
 		df = df.withColumn("c3", F.to_json("c2"))
-		json_schema = spark.read.json(df.rdd.map(lambda row: row.c3)).schema
+		json_schema = spark.read.json(df.rdd.map(lambda r: r.c3)).schema
 		df = df.withColumn("c3", F.from_json("c3", json_schema))
 
 		df.show()
@@ -321,8 +321,8 @@ map to struct (keys as col names)
 - if field names are known
 
     ```python
-    cols = ["c1", "c2", "c3"]
-    df = df.withColumn("c0", F.struct([F.col("c0")[c].alias(c) for c in cols]))
+    cols = ["a", "b"]
+    df = df.withColumn("c3", F.struct([F.col("c2")[c].alias(c) for c in cols]))
     ```
 
 
