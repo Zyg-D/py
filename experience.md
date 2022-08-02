@@ -235,10 +235,15 @@ df.show()
 
 map to array of struct (fields: key, value)
 
-    map_entries("c1")
+    F.map_entries("c1")
 
-map to columns (keys as col names)
 
+map to columns (col names: "key", "value")
+
+    F.explode("mapColumn")
+
+
+map to columns (col names from keys)
 
 - if col names are not known - reading the whole column in order to infer the new schema from all the keys (map only had 2 fields: key+value)
 
@@ -280,12 +285,23 @@ map to columns (keys as col names)
     df = df.select([F.col("c2")[c].alias(c) for c in cols])
     ```
 
+
 map to string (of json/map/dict form)
 
     F.to_json('c1')
 
 
-map to struct (keys as col names)
+map to struct (field names: "key", "value")
+
+```python
+F.explode(F.map_entries("map_col")).alias("struct_col")
+```
+```python
+F.map_entries("map_col").alias("struct_col")
+```
+
+
+map to struct (field names from keys)
 
 - if field names are not known - reading the whole column in order to infer the new schema from all the keys (map just had 2 fields: key+value)
 
