@@ -331,6 +331,11 @@ struct to string (of json/map/dict form)
     F.to_json('c1')
 
 
+struct to map (field_name -> value)
+
+    F.from_json(F.to_json("c1"), 'map<string, string>')
+
+
 
 ----------------------------------------------------------------------------------
 **Other**
