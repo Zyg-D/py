@@ -203,6 +203,11 @@ df = spark.createDataFrame([Row(**i) for i in data])
 **Conversions**
 
 
+array of struct to columns
+
+    F.expr("inline(c1)")
+
+
 array of struct to map
 
     F.map_from_entries("c1")
