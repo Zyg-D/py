@@ -713,6 +713,26 @@ spark.createDataFrame([('2020-01-01',)]).withColumn('c2', _to_str('_1')).collect
 # [Row(_1='2020-01-01', c2='01/01/2020')]
 ```
 
+-------------------------------------------------------------------------------
+
+
+
+**pandas_udf test**
+
+```python
+# @F.pandas_udf('long')  # <------- Test works only when commented
+def pwr(a: pd.Series) -> pd.Series:
+    return a**2
+
+x = pd.Series([1, 2, 3])
+print(pwr(x))
+# 0    1
+# 1    4
+# 2    9
+# dtype: int64
+```
+
+
 
 
 -------------------------------------------------------------------------------
