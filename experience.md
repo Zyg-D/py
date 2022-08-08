@@ -218,7 +218,7 @@ binary to long/int (dec)
     F.conv(F.hex("c1"), 16, 10)
 
 
-columns to map
+columns to map (one col - keys, other - values)
 
 ```python
 df = spark.createDataFrame(
@@ -236,6 +236,14 @@ df.show()
 # |  2|         {c -> 30}|
 # +---+------------------+
 ```
+
+
+columns to map (col names to keys):
+
+    F.from_json(F.to_json(F.struct(df.columns)), 'map<string,string>')
+    
+    w/o provided schema
+    F.map_from_entries(F.array(*[F.expr(f"struct('{k}', {k} v)") for k in df.columns]))
 
 
 map to array of struct (fields: key, value)
