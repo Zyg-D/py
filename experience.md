@@ -512,11 +512,11 @@ df2 = df.select(
     F.expr("stack(3, Col1, 'Col1', Col2, 'Col2', Col40, 'Col40') as (ColVal, ColDescr)")
 )
 # Option2
-cols_to_unpivot = [f"`{c}`, \'{c}\'" for c in df.columns if c != 'ID']
-stack_string = ", ".join(cols_to_unpivot)
-df2 = df.select(
+cols_to_unpivot = [f"\'{c}\', `{c}`" for c in df.columns if c != "ID"]
+stack_string = ",".join(cols_to_unpivot)
+df = df.select(
     "ID",
-    F.expr(f"stack({len(cols_to_unpivot)}, {stack_string}) as (ColVal, ColDescr)")
+    F.expr(f"stack({len(cols_to_unpivot)}, {stack_string}) as (col_name, value)")
 )
 ```
 
