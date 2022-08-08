@@ -505,18 +505,18 @@ Unpivot
 df = spark.createDataFrame(
     [(101, 3, 520, 2001),
      (102, 29, 530, 2020)],
-    ['ID', 'Col1', 'Col2', 'Col40'])
+    ['ID', 'col1', 'col2', 'col40'])
 # Option1
-df2 = df.select(
-    "ID",
-    F.expr("stack(3, Col1, 'Col1', Col2, 'Col2', Col40, 'Col40') as (ColVal, ColDescr)")
-)
-# Option2
-cols_to_unpivot = [f"\'{c}\', `{c}`" for c in df.columns if c != "ID"]
-stack_string = ",".join(cols_to_unpivot)
 df = df.select(
     "ID",
-    F.expr(f"stack({len(cols_to_unpivot)}, {stack_string}) as (col_name, value)")
+    F.expr("stack(3, 'col1', col1, 'col2', col2, 'col40', col40) (col_name, value)")
+)
+# Option2
+to_unpivot = [f"\'{c}\', `{c}`" for c in df.columns if c != "ID"]
+stack_str = ",".join(to_unpivot)
+df = df.select(
+    "ID",
+    F.expr(f"stack({len(to_unpivot)}, {stack_str}) (col_name, value)")
 )
 ```
 
