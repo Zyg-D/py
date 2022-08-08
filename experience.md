@@ -981,39 +981,22 @@ Deleting item:
     myset.remove(item)
 
 ----------------------------------------------------------------------------
-**importing .json**
+**import .json**
 
     df=pandas.read_json("file_name.json", encoding = 'utf8')
     
 ----------------------------------------------------------------------------
-**exporting .xlsx**
+**export .xlsx**
 
     with pandas.ExcelWriter('out_file.xlsx') as writer:
         df.to_excel(writer)
 
 ----------------------------------------------------------------------------
-**Activating a window**
+**write (save) file to Colab**
 
-Option 1
-```py
-import win32com.client as comclt
-wsh= comclt.Dispatch("WScript.Shell")
-wsh.AppActivate("the_name_of_window")
-wsh.SendKeys("{ENTER}")
-```
-<sup>It doesn't need any extra package to be installed! And most importantly, it can be compiled to EXE with 'py2exe' w/o problem, whereas 'pynput' and 'pyautogui' produce problems. </sup>
+    with open('sample_data/my_example.txt', 'w') as f:
+        f.write("This is line 1")
 
-
-Option 2
-```py
-import win32gui
-def myF(hwnd, lParam):
-    if win32gui.IsWindowVisible(hwnd):
-        if win32gui.GetWindowText(hwnd) == 'FRANKONAS':
-            win32gui.SetForegroundWindow(hwnd)
-# Passing the handle of each window, to an application-defined callback function (in this case: myF)
-win32gui.EnumWindows(myF, None)
-```
 
 ----------------------------------------------------------------------------
 **Read txt, csv file contents**
@@ -1050,4 +1033,29 @@ print(*[dict.get(i) for i in lines], sep='')
 lines = [1,3,2]
 for x in range(max(lines)):
     print(next(file)) if x+1 in lines else next(file)
+```
+
+
+----------------------------------------------------------------------------
+**Activating a window**
+
+Option 1
+```py
+import win32com.client as comclt
+wsh= comclt.Dispatch("WScript.Shell")
+wsh.AppActivate("the_name_of_window")
+wsh.SendKeys("{ENTER}")
+```
+<sup>It doesn't need any extra package to be installed! And most importantly, it can be compiled to EXE with 'py2exe' w/o problem, whereas 'pynput' and 'pyautogui' produce problems. </sup>
+
+
+Option 2
+```py
+import win32gui
+def myF(hwnd, lParam):
+    if win32gui.IsWindowVisible(hwnd):
+        if win32gui.GetWindowText(hwnd) == 'FRANKONAS':
+            win32gui.SetForegroundWindow(hwnd)
+# Passing the handle of each window, to an application-defined callback function (in this case: myF)
+win32gui.EnumWindows(myF, None)
 ```
