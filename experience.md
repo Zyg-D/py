@@ -199,6 +199,19 @@ df = spark.createDataFrame([Row(**i) for i in data])
 ```
 
 
+Temp view in SQL (temporary view)
+
+```python
+spark.sql("""
+CREATE OR REPLACE TEMPORARY VIEW table
+    AS VALUES
+        (('a', 1, 500)),
+        (('b', 3, 10))
+    AS tab(brand, month, value)
+""")
+```
+
+
 ----------------------------------------------------------------------------------
 **Conversions**
 
