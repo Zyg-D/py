@@ -740,7 +740,7 @@ Other libraries in pandas_udf
 ```python
 import wordninja
 import pandas as pd
-@F.pandas_udf(ArrayType(StringType()))
+@F.pandas_udf('array<string>')
 def split_word(c: pd.Series) -> pd.Series:
    return c.apply(lambda s: wordninja.split(s))
 
