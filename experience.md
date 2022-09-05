@@ -705,12 +705,11 @@ TRANSFORMS = generate_transforms([
 ])
 ```
 
-**Datetime**
 
-Configuration in Spark 3 to use Spark 2 datetime patterns:
-```python
-spark.conf.set("spark.sql.legacy.timeParserPolicy", "LEGACY")
-```
+
+-------------------------------------------------------------------------------
+
+**pandas_udf**
 
 Specified format to date:
 ```python
@@ -722,6 +721,7 @@ def _to_date(year_week: pd.Series) -> pd.Series:
 spark.createDataFrame([('2020-01',)]).withColumn('c2', _to_date('_1')).collect()
 # [Row(_1='2020-01', c2=datetime.date(2019, 12, 30))]
 ```
+
 
 Date to specified format
 ```python
@@ -735,8 +735,18 @@ spark.createDataFrame([('2020-01-01',)]).withColumn('c2', _to_str('_1')).collect
 # [Row(_1='2020-01-01', c2='01/01/2020')]
 ```
 
--------------------------------------------------------------------------------
 
+Other libraries in pandas_udf
+```python
+import wordninja
+import pandas as pd
+@F.pandas_udf(ArrayType(StringType()))
+def split_word(c: pd.Series) -> pd.Series:
+   return c.apply(lambda s: wordninja.split(s))
+
+spark.createDataFrame([("ilikethis",)]).withColumn('c2', split_word('_1')).collect()
+# [Row(_1='ilikethis', c2=['i', 'like', 'this'])]
+```
 
 
 **pandas_udf test**
