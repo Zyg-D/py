@@ -740,11 +740,23 @@ Return array of int
 ```python
 import pandas as pd
 @F.pandas_udf('array<int>')
-def p_list(x: pd.Series, y: pd.Series) -> pd.Series:
+def pudf(x: pd.Series, y: pd.Series) -> pd.Series:
     return pd.Series([[x, y]])
 
-spark.createDataFrame([(5, 2)]).withColumn('out', p_list('_1', '_2')).collect()
+spark.createDataFrame([(5, 2)]).withColumn('out', pudf('_1', '_2')).collect()
 # [Row(_1=5, _2=2, out=[5, 2])]
+```
+
+
+Return array of string
+```python
+import pandas as pd
+@F.pandas_udf('array<string>')
+def pudf(x: pd.Series, y: pd.Series) -> pd.Series:
+    return pd.Series([[x[0], y[0]]])
+
+spark.createDataFrame([('aa', 'bb')]).withColumn('out', pudf('_1', '_2')).collect()
+# [Row(_1='aa', _2='bb', out=['aa', 'bb'])]
 ```
 
 
