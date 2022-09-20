@@ -369,6 +369,11 @@ map to struct (field names from keys)
     ```
 
 
+struct to array
+
+    F.array("col_1.*")
+
+
 struct to string (of json/map/dict form)
 
     F.to_json('c1')
