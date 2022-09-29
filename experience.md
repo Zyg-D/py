@@ -778,6 +778,18 @@ spark.createDataFrame([("ilikethis",)]).withColumn('c2', split_word('_1')).colle
 ```
 
 
+Several input columns
+```python
+import pandas as pd
+@F.pandas_udf('long')
+def pudf(c1: pd.Series, c2: pd.Series) -> pd.Series:
+    return pd.concat([c1, c2], axis=1).apply(lambda x: x[0] + x[1], axis=1)
+
+spark.createDataFrame([(1, 10), (2, 20)], ['a', 'b']).withColumn('c', pudf('a', 'b')).collect()
+# [Row(a=1, b=10, c=11), Row(a=2, b=20, c=22)]
+```
+
+
 **pandas_udf test**
 
 ```python
