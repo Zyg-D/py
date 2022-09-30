@@ -106,6 +106,8 @@ header_str = rdd.first()
 rddDataLines = rdd.filter(lambda line: line != header_str)
 rddSplit = rddDataLines.map(lambda k: k.split(','))
 df = rddSplit.toDF(header_str.split(','))
+# OR
+df = spark.read.csv(r"C:\Temp\sample.txt")  # auto col name = _c0
 ```
 When encoding is needed:
 ```python
