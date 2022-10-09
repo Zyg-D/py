@@ -102,10 +102,10 @@ RDD, DF from local txt:
 
 ```python
 rdd = spark.sparkContext.textFile(r'C:\Temp\sample.txt')
-header_str = rdd.first()
-rddDataLines = rdd.filter(lambda line: line != header_str)
-rddSplit = rddDataLines.map(lambda k: k.split(','))
-df = rddSplit.toDF(header_str.split(','))
+rdd = rdd.map(lambda line: line.split(','))
+header = rdd.first()
+rdd = rdd.filter(lambda line: line != header) # when rdd needed
+df = rdd.filter(lambda line: line != header).toDF(header) # when df needed
 # OR
 df = spark.read.csv(r"C:\Temp\sample.txt")  # auto col name = _c0
 ```
