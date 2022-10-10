@@ -107,7 +107,7 @@ header = rdd.first()
 rdd = rdd.filter(lambda line: line != header) # when rdd needed
 df = rdd.filter(lambda line: line != header).toDF(header) # when df needed
 # OR
-df = spark.read.text(r"C:\Temp\sample.txt")  # yields 1 col: 'value' (if separator arg is used, substrings are exploded)
+df = spark.read.text(r"C:\Temp\sample.txt")  # yields 1 col: 'value' (if lineSep arg is used, substrings are exploded)
 df = spark.read.csv(r"C:\Temp\sample.txt")  # auto col name = '_c0'
 ```
 When encoding is needed:
