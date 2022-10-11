@@ -539,6 +539,15 @@ df = df.select(
     "ID",
     F.expr(f"stack({len(to_unpivot)}, {stack_str}) (col_name, value)")
 )
+# OR
+to_melt = {'col1', 'col2', 'col40'}
+new_names = '(col_name, value)'
+
+melt_list = [f"\'{c}\', `{c}`" for c in to_melt]
+df = df.select(
+    *(set(df.columns) - to_melt),
+    F.expr(f"stack({len(melt_list)}, {','.join(melt_list)}) {new_names}")
+)
 ```
 
 Median, quartiles
