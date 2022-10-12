@@ -578,9 +578,9 @@ df = (
     .withColumn('median_acc', F.expr('percentile(id, .5) over()'))
     .withColumn('quartiles_acc', F.expr('percentile(id, array(.25, .5, .75)) over()'))
     # APPROX values for given percentiles
-    .withColumn('median_approx', F.percentile_approx('id', .5).over(W.partitionBy(F.lit(1))))
+    .withColumn('median_approx', F.percentile_approx('id', .5).over(W.orderBy()))
     .withColumn('median_approx2', F.expr('percentile_approx(id, .5) over()'))
-    .withColumn('quartiles_approx', F.percentile_approx('id', [.25, .5, .75]).over(W.partitionBy(F.lit(1))))
+    .withColumn('quartiles_approx', F.percentile_approx('id', [.25, .5, .75]).over(W.orderBy()))
     .withColumn('quartiles_approx2', F.expr('percentile_approx(id, array(.25, .5, .75)) over()'))
 )
 df.show()
