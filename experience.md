@@ -527,19 +527,35 @@ df = spark.createDataFrame(
     [(101, 3, 520, 2001),
      (102, 29, 530, 2020)],
     ['ID', 'col1', 'col2', 'col40'])
-# Option1
-df = df.select(
+
+# Option1 - when small df - everything hard-coded
+df = df.selectExpr(
     "ID",
-    F.expr("stack(3, 'col1', col1, 'col2', col2, 'col40', col40) (col_name, value)")
+    "stack(3, 'col1', col1, 'col2', col2, 'col40', col40) (col_name, value)"
 )
-# Option2
-to_unpivot = [f"\'{c}\', `{c}`" for c in df.columns if c != "ID"]
-stack_str = ",".join(to_unpivot)
-df = df.select(
+
+# Option2 - when all to melt, 0 to keep
+to_melt = [f"\'{c}\', `{c}`" for c in df.columns]
+df = df.selectExpr(f"stack({len(to_melt)}, {','.join(to_melt)}) (col_name, value)")
+
+# Option3 - when many to melt, 1 to keep (ID)
+to_melt = [f"\'{c}\', `{c}`" for c in df.columns if c != "ID"]
+df = df.selectExpr(
     "ID",
-    F.expr(f"stack({len(to_unpivot)}, {stack_str}) (col_name, value)")
+    f"stack({len(to_melt)}, {','.join(to_melt)}) (col_name, value)"
 )
-# OR
+
+# Option4 - when many to melt, few to keep
+to_keep = {'ID'}
+new_names = '(col_name, value)'
+
+melt_list = [f"\'{c}\', `{c}`" for c in set(df.columns) - to_keep]
+df = df.select(
+    *to_keep,
+    F.expr(f"stack({len(melt_list)}, {','.join(melt_list)}) {new_names}")
+)
+
+# Option5 - when few to melt, many to keep.
 to_melt = {'col1', 'col2', 'col40'}
 new_names = '(col_name, value)'
 
