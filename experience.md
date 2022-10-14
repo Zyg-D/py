@@ -443,17 +443,6 @@ import re
 re.search(r"'.*?`?(\w+)`?'", str(col)).group(1)
 ```
 
-Filter DF rows:
-
-```python
-1  df = df.filter(df.distance > 2000) # repeated df
-2  df = df.filter('d<5 and (col1 <> col3 or (col1 = col3 and col2 <> col4))')
-# requires import pyspark.sql.functions as F
-3  df = df.filter(F.col('distance') > 2000)
-4  df = df.filter(
-        ((F.col('col1') != F.col('col3')) | 
-         (F.col('col2') != F.col('col4')) & (F.col('col1') == F.col('col3')) ) )
-```
 
 First row:
 ```python
@@ -505,11 +494,8 @@ df.orderBy(F.col('e_snf.snf_san_data').desc_nulls_last())
 
 Group + aggregate
 
-    df.groupby(F.col('e_cbi.cbi_id')).agg(F.max('e_cbi.ist_data').alias('data'))
+    df.groupBy(F.col('e_cbi.cbi_id')).agg(F.max('e_cbi.ist_data').alias('data'))
 
-Change col type
-
-    new_df = df.withColumn("colx", df["colx"].cast('date'))
 
 Window
 
@@ -594,6 +580,19 @@ df.show()
 #|  5|         1.0|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
 #+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
 ```
+
+
+Schema from JSON string
+
+```python
+json = """{"a": {"b":1, "c": 2}}"""
+json2 = """[{"a": {"b":1, "c": 2}}]"""
+print(spark.read.json(sc.parallelize([json])).schema.simpleString())
+# struct<a:struct<b:bigint,c:bigint>>
+print(spark.read.json(sc.parallelize([json2])).schema.simpleString())
+# struct<a:struct<b:bigint,c:bigint>>
+```
+
 
 Change deeply nested structure
 
