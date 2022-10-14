@@ -591,6 +591,9 @@ print(spark.read.json(sc.parallelize([json])).schema.simpleString())
 # struct<a:struct<b:bigint,c:bigint>>
 print(spark.read.json(sc.parallelize([json2])).schema.simpleString())
 # struct<a:struct<b:bigint,c:bigint>>
+
+# kai json vertėse yra backslashes \ reikia kiekvieną jų padauginti 4 kartus
+print(spark.read.json(sc.parallelize([json_str.replace('\\', '\\\\\\\\')])).schema)
 ```
 
 
