@@ -890,6 +890,37 @@ df = df.withColumn('vect1', array_to_vector('col_arr_dbl'))
 
 
 
+-------------------------------------------------------------------------------
+**Sedona**
+
+```python
+!pip install apache-sedona[spark]
+from pyspark.sql import SparkSession, functions as F, Window as W, Window, types as T
+from sedona.register import SedonaRegistrator  
+from sedona.utils import SedonaKryoRegistrator, KryoSerializer
+spark = (SparkSession.builder
+    .config("spark.serializer", KryoSerializer.getName)
+    .config("spark.kryo.registrator", SedonaKryoRegistrator.getName)
+    .config('spark.jars.packages',
+            'org.apache.sedona:sedona-python-adapter-3.0_2.12:1.2.1-incubating,'
+            'org.datasyslab:geotools-wrapper:1.1.0-25.2')
+    .getOrCreate())
+SedonaRegistrator.registerAll(spark)
+```
+
+
+df from geojson from web using geopandas:
+
+```python
+import geopandas as gpd
+url = "http://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_land.geojson"
+df = spark.createDataFrame(gpd.read_file(url))
+df.printSchema()
+# root
+#  |-- scalerank: long (nullable = true)
+#  |-- featureclass: string (nullable = true)
+#  |-- geometry: geometry (nullable = true)
+```
 
 
 -------------------------------------------------------------------------------
