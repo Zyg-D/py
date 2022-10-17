@@ -820,6 +820,23 @@ spark.createDataFrame([(1, 10), (2, 20)], ['a', 'b']).withColumn('c', pudf('a', 
 ```
 
 
+Iterator
+```python
+import pandas as pd
+from pymorphy2 import MorphAnalyzer
+from pyspark.sql import types as T, functions as F
+from typing import Iterator
+@F.pandas_udf(T.StringType())
+def pudf(s: Iterator[pd.Series]) -> Iterator[pd.Series]:
+    m = MorphAnalyzer()
+    for e in s:
+        yield e.apply(lambda x: m.parse(x)[0].tag.gender)
+
+spark.createDataFrame([("кирилл",), ("софия",)]).withColumn("gender", pudf("_1")).collect()
+# [Row(_1='кирилл', gender='masc'), Row(_1='софия', gender='femn')]
+```
+
+
 **pandas_udf test**
 
 ```python
