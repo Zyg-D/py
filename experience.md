@@ -915,13 +915,48 @@ df from geojson from web using geopandas:
 import geopandas as gpd
 url = "http://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_land.geojson"
 df = spark.createDataFrame(gpd.read_file(url))
-df.printSchema()
-# root
-#  |-- scalerank: long (nullable = true)
-#  |-- featureclass: string (nullable = true)
-#  |-- geometry: geometry (nullable = true)
+print(df.dtypes)
+# [('scalerank', 'bigint'), ('featureclass', 'string'), ('geometry', 'udt')] --- 'udt'= geometry
+print(df.head())
+# Row(scalerank=1, featureclass='Country', geometry=<shapely.geometry.polygon.Polygon object at 0x7f29154710d0>)
 ```
 
+
+LINESTRING from text
+
+```python
+df = spark.createDataFrame([('linestring(1 2, 3 4)',)])
+df.createOrReplaceTempView("test")
+df = spark.sql("SELECT ST_GeomFromWKT(_1) as geom FROM test")
+print(df.dtypes)
+# [('geom', 'udt')] --- 'udt'= geometry
+print(df.head())
+# Row(geom=<shapely.geometry.linestring.LineString object at 0x7f2915c82b10>)
+```
+
+POINT from text
+
+```python
+df = spark.createDataFrame([('POINT(-59.0 -80.1)',)])
+df.createOrReplaceTempView("test")
+df = spark.sql("SELECT ST_GeomFromWKT(_1) as geom FROM test")
+print(df.dtypes)
+# [('geom', 'udt')] --- 'udt'= geometry
+print(df.head())
+# Row(geom=<shapely.geometry.point.Point object at 0x7f29153caa50>)
+```
+
+POLYGON from text
+
+```python
+df = spark.createDataFrame([('POLYGON ((51.0 3.0, 51.3 3.61, 51.3 3.0, 51.0 3.0))',)])
+df.createOrReplaceTempView("test")
+df = spark.sql("SELECT ST_GeomFromWKT(_1) as geom FROM test")
+print(df.dtypes)
+# [('geom', 'udt')] --- 'udt'= geometry
+print(df.head())
+# Row(geom=<shapely.geometry.polygon.Polygon object at 0x7f29153e2090>)
+```
 
 -------------------------------------------------------------------------------
 # Python
