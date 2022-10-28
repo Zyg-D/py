@@ -801,7 +801,7 @@ import wordninja
 import pandas as pd
 @F.pandas_udf('array<string>')
 def split_word(c: pd.Series) -> pd.Series:
-   return c.apply(lambda s: wordninja.split(s))
+   return c.apply(wordninja.split)  # OR  c.apply(lambda s: wordninja.split(s))
 
 spark.createDataFrame([("ilikethis",)]).withColumn('c2', split_word('_1')).collect()
 # [Row(_1='ilikethis', c2=['i', 'like', 'this'])]
