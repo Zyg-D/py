@@ -1,9 +1,29 @@
+**Save local file**
+
+```python
+# txt / csv
+s = """c1,c2,c3
+7777,8888,9999"""
+with open('file_name.csv', 'w') as f:
+    f.write(s)
+
+# json
+s = """{
+    "TotalRows":2,
+    "Errors":null
+}"""
+with open('file_name.json', 'w') as f:
+    f.write(s)
+```
+
+
+# PySpark
+
 ```python
 from pyspark.sql import SparkSession, functions as F, Window as W
 spark = SparkSession.builder.getOrCreate()
 ```
 
-# PySpark
 
 **conf**
 
