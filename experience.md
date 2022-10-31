@@ -14,6 +14,13 @@ s = """{
 }"""
 with open('file_name.json', 'w') as f:
     f.write(s)
+
+# jsonl
+s = """{"name": "Tim", "wins": []}
+{"name": "Tom", "wins": [["three of a kind", "5♣"]]}
+{"name": "Ann", "losses_cnt": 3}"""
+with open('file_name.jsonl', 'w') as f:
+    f.write(s)
 ```
 
 
@@ -153,7 +160,7 @@ print(rdd.take(1))
 print(filtRDD.collect())
 ```
 
-RDD, DF from example JSON
+RDD, DF from example JSON (dict) variable
 
 ```python
 json = \
@@ -199,6 +206,21 @@ df.show()
 #|eduardo|lozano|   mr|
 #|lorenzo|ferrer|   mr|
 ```
+
+
+DF from local JSON
+
+```python
+df = spark.read.option('multiline', 'true').json('file_name.json')
+```
+
+
+DF from local JSONL
+
+```python
+df = spark.read.json('file_name.jsonl')
+```
+
 
 RDD, DF from local CSV
 
