@@ -414,6 +414,18 @@ map to struct (field names from keys)
     ```
 
 
+struct of struct to array of struct (inner struct's name goes as field into inner struct)  
+<sup>keeps other columns intact</sup>
+
+```python
+dtype = df.schema["strct_outer"].dataType[0].dataType.simpleString()
+df = df.withColumn("strct_outer", F.map_values(F.transform_values(
+    F.from_json(F.to_json("strct_outer"), f'map<string,{dtype}>'), 
+    lambda k, v: v.withField("struct_key", k)
+)))
+```
+
+
 struct to array
 
     F.array("col_1.*")
