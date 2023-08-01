@@ -606,7 +606,7 @@ df = df.select(
 )
 ```
 
-Median, quartiles
+Quantiles (e.g. median, quartiles, percentiles)
 
 ```python
 df = (
