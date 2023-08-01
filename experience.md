@@ -611,28 +611,31 @@ Median, quartiles
 ```python
 df = (
     spark.range(1, 6)
-    # accurate percentiles for given values
+    # accurate percent_rank (percentile) values for column's values
     .withColumn('percent_rank', F.percent_rank().over(W.orderBy('id')))
-    # ACCURATE values for given percentiles
+    # ACCURATE values for given percent_rank (percentile) values
     .withColumn('lower_quartile_acc', F.expr('percentile(id, .25) over()'))
-    .withColumn('median_acc', F.expr('percentile(id, .5) over()'))
+    .withColumn('median_acc1', F.expr('percentile(id, .5) over()'))
+    .withColumn('median_acc2', F.expr('median(id) over()'))
+    .withColumn('median_acc3', F.median('id').over(W.orderBy()))
+    .withColumn('upper_quartile_acc', F.expr('percentile(id, .75) over()'))
     .withColumn('quartiles_acc', F.expr('percentile(id, array(.25, .5, .75)) over()'))
-    # APPROX values for given percentiles
-    .withColumn('median_approx', F.percentile_approx('id', .5).over(W.orderBy()))
+    # APPROX values for given percent_rank (percentile) values
+    .withColumn('median_approx1', F.percentile_approx('id', .5).over(W.orderBy()))
     .withColumn('median_approx2', F.expr('percentile_approx(id, .5) over()'))
-    .withColumn('quartiles_approx', F.percentile_approx('id', [.25, .5, .75]).over(W.orderBy()))
+    .withColumn('quartiles_approx1', F.percentile_approx('id', [.25, .5, .75]).over(W.orderBy()))
     .withColumn('quartiles_approx2', F.expr('percentile_approx(id, array(.25, .5, .75)) over()'))
 )
 df.show()
-#+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
-#| id|percent_rank|lower_quartile_acc|median_acc|  quartiles_acc|median_approx|median_approx2|quartiles_approx|quartiles_approx2|
-#+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
-#|  1|         0.0|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
-#|  2|        0.25|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
-#|  3|         0.5|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
-#|  4|        0.75|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
-#|  5|         1.0|               2.0|       3.0|[2.0, 3.0, 4.0]|            3|             3|       [2, 3, 4]|        [2, 3, 4]|
-#+---+------------+------------------+----------+---------------+-------------+--------------+----------------+-----------------+
+# +---+------------+------------------+-----------+-----------+-----------+------------------+---------------+--------------+--------------+-----------------+-----------------+
+# | id|percent_rank|lower_quartile_acc|median_acc1|median_acc2|median_acc3|upper_quartile_acc|  quartiles_acc|median_approx1|median_approx2|quartiles_approx1|quartiles_approx2|
+# +---+------------+------------------+-----------+-----------+-----------+------------------+---------------+--------------+--------------+-----------------+-----------------+
+# |  1|         0.0|               2.0|        3.0|        3.0|        3.0|               4.0|[2.0, 3.0, 4.0]|             3|             3|        [2, 3, 4]|        [2, 3, 4]|
+# |  2|        0.25|               2.0|        3.0|        3.0|        3.0|               4.0|[2.0, 3.0, 4.0]|             3|             3|        [2, 3, 4]|        [2, 3, 4]|
+# |  3|         0.5|               2.0|        3.0|        3.0|        3.0|               4.0|[2.0, 3.0, 4.0]|             3|             3|        [2, 3, 4]|        [2, 3, 4]|
+# |  4|        0.75|               2.0|        3.0|        3.0|        3.0|               4.0|[2.0, 3.0, 4.0]|             3|             3|        [2, 3, 4]|        [2, 3, 4]|
+# |  5|         1.0|               2.0|        3.0|        3.0|        3.0|               4.0|[2.0, 3.0, 4.0]|             3|             3|        [2, 3, 4]|        [2, 3, 4]|
+# +---+------------+------------------+-----------+-----------+-----------+------------------+---------------+--------------+--------------+-----------------+-----------------+
 ```
 
 
