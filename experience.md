@@ -67,6 +67,7 @@ df = spark.range(4)
 
 # One row
 df = spark.createDataFrame([{'c1': 1, 'c2': 2}])
+df = spark.sql("SELECT 'a' c1, 9L c2")
 
 # Date type
 df = spark.createDataFrame([(1, '2020-05-05'), (2, None)], ['c1', 'c2'])
