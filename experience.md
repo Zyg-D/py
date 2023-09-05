@@ -21,6 +21,9 @@ s = """{"name": "Tim", "wins": []}
 {"name": "Ann", "losses_cnt": 3}"""
 with open('file_name.jsonl', 'w') as f:
     f.write(s)
+
+# parquet - single file from Spark df
+df.toPandas().to_parquet('parq_test5.parquet')
 ```
 
 
