@@ -309,6 +309,20 @@ F.map_from_entries(F.array(*[F.expr(f"struct('{k}', {k} v)") for k in df.columns
 ```
 
 
+dict to map
+
+```python
+F.create_map([F.lit(x) for i in dic.items() for x in i])
+```
+
+
+dict to struct
+
+```python
+F.named_struct(*[F.lit(x) for i in dic.items() for x in i])
+```
+
+
 map to array of struct (fields: key, value)
 
     F.map_entries("c1")
